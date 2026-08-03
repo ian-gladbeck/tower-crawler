@@ -14,18 +14,10 @@ public class RoomRenderer {
                     System.out.print("p ");
                     continue;
                 }
-                System.out.print(getTile(room.getGrid()[i][j]) + " ");
+                System.out.print(room.getGrid()[i][j].getSymbol() + " ");
             }
             System.out.println();
         }
     }
 
-    private static char getTile (Tile tile) {
-        return switch (tile) {
-            case PATH -> '.';
-            case BARRIER -> '#';
-            case EXIT -> '!';
-            case GOLD -> '$';
-        };
-    }
 }
