@@ -3,6 +3,7 @@ package engine;
 import model.Room;
 import model.Tile;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class RoomGeneration {
@@ -11,6 +12,14 @@ public class RoomGeneration {
 
     public RoomGeneration(Room room) {
         this.room = room;
+    }
+
+    private void resetRoom () {
+        for (int i = 0; i < room.getHeight(); i++) {
+            for (int j = 0; j < room.getWidth(); j++) {
+                room.getGrid()[i][j] = null;
+            }
+        }
     }
 
     private void createPath () {
@@ -44,6 +53,7 @@ public class RoomGeneration {
     }
 
     public Room createRoom () {
+        resetRoom();
         createPath();
         fillRoom();
         putExit();

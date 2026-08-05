@@ -6,7 +6,7 @@ import model.Tile;
 
 public class RoomRenderer {
 
-    public static void printRoom (Room room, Player player) {
+    public void printRoom (Room room, Player player) {
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
                 if (player.getPosition().getY() == i
@@ -19,5 +19,4 @@ public class RoomRenderer {
             System.out.println();
         }
     }
-
 }

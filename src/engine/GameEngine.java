@@ -5,37 +5,22 @@ import model.Player;
 import model.Position;
 import model.Room;
 import model.Tile;
-import renderer.RoomRenderer;
 
-import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class GameEngine {
     private static int numberRoom;
     private Player player;
     private Room room;
+    private RoomGeneration roomGeneration;
 
-    public GameEngine(Player player, Room room) {
+    public GameEngine(Player player, Room room, RoomGeneration roomGeneration) {
         this.player = player;
         this.room = room;
+        this.roomGeneration = roomGeneration;
     }
 
-    public void startRoom(Scanner sc) {
-        boolean win = false;
-        while (!win) {
-            try {
-                RoomRenderer.printRoom(room, player);
-                char direction = sc.next().toLowerCase().charAt(0);
-                movePlayer(direction);
-                if (checkWin())
-                    win = true;
-            }
-            catch(InvalidMovementException e){
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private void movePlayer (char direction) {
+    public void movePlayer (char direction) {
         Position newPosition = checkMovement(direction);
         if (newPosition == null)
             throw new InvalidMovementException("You cannot move in that direction");
@@ -43,9 +28,14 @@ public class GameEngine {
                 newPosition.getX());
     }
 
-    private boolean checkWin () {
-        return player.getPosition().getY() == room.getHeight() - 1
-                && player.getPosition().getX() == room.getWidth() - 1;
+    public boolean checkWin () {
+        if (room.getGrid()[player.getPosition().getY()]
+                [player.getPosition().getX()] == Tile.EXIT) {
+            player.setPayerPosition();
+            numberRoom++;
+            return true;
+        }
+        return false;
     }
 
     private Position checkMovement (char direction) {
@@ -56,6 +46,7 @@ public class GameEngine {
             case 'a' -> x--;
             case 'w' -> y--;
             case 's' -> y++;
+            default -> throw new InputMismatchException("Invalid Input");
         }
         if (y > room.getHeight() - 1 || y < 0
                 || x > room.getWidth() - 1 || x < 0)
@@ -67,7 +58,7 @@ public class GameEngine {
         return new Position(y, x);
     }
 
-    public static int getNumberRoom() {
+    public int getNumberRoom() {
         return numberRoom;
     }
 
@@ -77,5 +68,9 @@ public class GameEngine {
 
     public Room getRoom() {
         return room;
+    }
+
+    public RoomGeneration getRoomGeneration() {
+        return roomGeneration;
     }
 }
