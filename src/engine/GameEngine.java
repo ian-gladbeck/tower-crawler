@@ -58,6 +58,16 @@ public class GameEngine {
         return new Position(y, x);
     }
 
+    public boolean checkGold (Position position) {
+        if (room.getGrid()[position.getY()][position.getX()]
+            == Tile.GOLD) {
+            player.collectGold(10);
+            room.getGrid()[position.getY()][position.getX()] = Tile.PATH;
+            return true;
+        }
+        return false;
+    }
+
     public int getNumberRoom() {
         return numberRoom;
     }

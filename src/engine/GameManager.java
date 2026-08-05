@@ -28,6 +28,8 @@ public class GameManager {
                 System.out.print("Move (w/a/s/d): ");
                 char direction = sc.next().toLowerCase().charAt(0);
                 gameEngine.movePlayer(direction);
+                if (gameEngine.checkGold(gameEngine.getPlayer().getPosition()))
+                    System.out.println("+10 GOLD!!");
                 if (gameEngine.checkWin()) {
                     System.out.println("You Win!!!");
                     win = true;

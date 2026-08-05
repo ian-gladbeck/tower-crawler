@@ -2,6 +2,7 @@ package model;
 
 public class Player {
     private String name;
+    private int gold;
     private int life;
     private Position position;
 
@@ -14,6 +15,17 @@ public class Player {
     public void setPlayerPosition () {
         this.position = new Position(0, 0);
     }
+
+    public void collectGold (int gold) {
+        if (gold > 0)
+            this.gold += gold;
+    }
+
+
+    public int getGold() {
+        return gold;
+    }
+
 
     public String getName() {
         return name;
