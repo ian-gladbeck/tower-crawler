@@ -20,20 +20,19 @@ public class GameManager {
 
     public void startRoom () {
         Room room = gameEngine.getRoomGeneration().createRoom();
-        boolean win = false;
-        while (!win) {
+        while (true) {
             try {
                 System.out.println("    ==== ROOM " + (gameEngine.getNumberRoom() + 1) + " ====");
                 roomRenderer.printRoom(room, gameEngine.getPlayer());
+                if (gameEngine.checkWin()) {
+                    System.out.println("You Win!!!");
+                    break;
+                }
                 System.out.print("Move (w/a/s/d): ");
-                char direction = sc.next().toLowerCase().charAt(0);
+                char direction = sc.nextLine().toLowerCase().charAt(0);
                 gameEngine.movePlayer(direction);
                 if (gameEngine.checkGold(gameEngine.getPlayer().getPosition()))
                     System.out.println("+10 GOLD!!");
-                if (gameEngine.checkWin()) {
-                    System.out.println("You Win!!!");
-                    win = true;
-                }
             }
             catch(InvalidMovementException | InputMismatchException e){
                 System.out.println(e.getMessage());
