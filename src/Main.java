@@ -4,7 +4,7 @@ import engine.RoomGeneration;
 import model.Player;
 import model.Position;
 import model.Room;
-import renderer.RoomRenderer;
+import ui.RoomRenderer;
 import java.util.Scanner;
 
 public class Main {

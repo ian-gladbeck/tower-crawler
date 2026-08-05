@@ -2,7 +2,7 @@ package engine;
 
 import exception.InvalidMovementException;
 import model.Room;
-import renderer.RoomRenderer;
+import ui.RoomRenderer;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

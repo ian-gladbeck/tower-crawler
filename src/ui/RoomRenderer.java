@@ -1,8 +1,7 @@
-package renderer;
+package ui;
 
 import model.Player;
 import model.Room;
-import model.Tile;
 
 public class RoomRenderer {
 
