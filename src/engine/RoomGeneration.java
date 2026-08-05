@@ -2,8 +2,6 @@ package engine;
 
 import model.Room;
 import model.Tile;
-
-import java.util.Arrays;
 import java.util.Random;
 
 public class RoomGeneration {
@@ -22,6 +20,17 @@ public class RoomGeneration {
         }
     }
 
+    private void putGoldInRoom () {
+        for (int i = 0; i < room.getHeight(); i++) {
+            for (int j = 0; j < room.getWidth(); j++) {
+                if (random.nextInt(5) == 1
+                        && room.getGrid()[i][j] == Tile.PATH)
+                    room.getGrid()[i][j] = Tile.GOLD;
+            }
+        }
+    }
+
+
     private void createPath () {
         int x = 0;
         int y = 0;
@@ -39,7 +48,8 @@ public class RoomGeneration {
             for (int j = 0; j < room.getWidth(); j++) {
                 if (i == 0 && j == 0)
                     room.getGrid()[i][j] = Tile.PATH;
-                if (room.getGrid()[i][j] == Tile.PATH) continue;
+                if (room.getGrid()[i][j] == Tile.PATH
+                        || room.getGrid()[i][j] == Tile.GOLD) continue;
                 if (random.nextBoolean())
                     room.getGrid()[i][j] = Tile.PATH;
                 else
@@ -55,6 +65,7 @@ public class RoomGeneration {
     public Room createRoom () {
         resetRoom();
         createPath();
+        putGoldInRoom();
         fillRoom();
         putExit();
         return room;

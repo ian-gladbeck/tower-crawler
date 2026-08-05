@@ -31,7 +31,7 @@ public class GameEngine {
     public boolean checkWin () {
         if (room.getGrid()[player.getPosition().getY()]
                 [player.getPosition().getX()] == Tile.EXIT) {
-            player.setPayerPosition();
+            player.setPlayerPosition();
             numberRoom++;
             return true;
         }
