@@ -6,10 +6,11 @@ public class Player {
     private int life;
     private Position position;
 
-    public Player(String name, int life, Position position) {
+    public Player(String name, int life, Position position, int gold) {
         this.name = name;
         this.life = life;
         this.position = position;
+        this.gold = gold;
     }
 
     public void setPlayerPosition () {

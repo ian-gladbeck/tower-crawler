@@ -9,15 +9,16 @@ import model.Tile;
 import java.util.InputMismatchException;
 
 public class GameEngine {
-    private static int numberRoom;
+    private int numberRoom;
     private Player player;
     private Room room;
     private RoomGeneration roomGeneration;
 
-    public GameEngine(Player player, Room room, RoomGeneration roomGeneration) {
+    public GameEngine(Player player, Room room, RoomGeneration roomGeneration, int numberRoom) {
         this.player = player;
         this.room = room;
         this.roomGeneration = roomGeneration;
+        this.numberRoom = numberRoom;
     }
 
     public void movePlayer (char direction) {

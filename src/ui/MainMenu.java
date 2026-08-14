@@ -1,6 +1,7 @@
 package ui;
 
 import engine.GameManager;
+import save.SaveManager;
 
 import java.util.Scanner;
 
@@ -32,6 +33,7 @@ public class MainMenu {
                     }
                     break;
                 case 2:
+                    SaveManager.save(gameManager.getGameEngine().getPlayer(), gameManager.getGameEngine().getNumberRoom());
                     System.exit(0);
                     break;
             }
