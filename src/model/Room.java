@@ -4,13 +4,11 @@ public class Room {
     private int height;
     private int width;
     private Tile[][] grid;
-    private Player player;
 
-    public Room(int height, int width, Player player) {
+    public Room(int height, int width) {
         this.height = height;
         this.width = width;
         this.grid = new Tile[height][width];
-        this.player = player;
     }
 
     public int getHeight() {
@@ -23,9 +21,5 @@ public class Room {
 
     public Tile[][] getGrid() {
         return grid;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 }
