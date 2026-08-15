@@ -12,7 +12,7 @@ public class RoomRenderer {
             for (int j = 0; j < room.getWidth(); j++) {
                 if (player.getPosition().getY() == i
                         && player.getPosition().getX() == j) {
-                    System.out.print("p ");
+                    System.out.print("\uD83D\uDC82 ");
                     continue;
                 }
                 Enemy enemy = room.getEnemyInPosition(i, j);

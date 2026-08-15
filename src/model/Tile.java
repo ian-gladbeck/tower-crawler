@@ -1,18 +1,18 @@
 package model;
 
 public enum Tile {
-    PATH('.'),
-    BARRIER('#'),
-    GOLD('$'),
-    EXIT('!');
+    PATH("  "),
+    BARRIER("\uD83E\uDDF1"),
+    GOLD("\uD83D\uDC8E"),
+    EXIT("\uD83D\uDEAA");
 
-    private final char symbol;
+    private final String symbol;
 
-    Tile(char symbol) {
+    Tile(String symbol) {
         this.symbol = symbol;
     }
 
-    public char getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
 }

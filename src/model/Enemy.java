@@ -1,12 +1,10 @@
 package model;
 
 public class Enemy {
-    private EnemyType enemyType;
     private Position position;
     private int life;
 
-    public Enemy(EnemyType enemyType, Position position, int life) {
-        this.enemyType = enemyType;
+    public Enemy(Position position, int life) {
         this.position = position;
         this.life = life;
     }
@@ -17,12 +15,8 @@ public class Enemy {
         }
     }
 
-    public char getSymbol () {
-        return enemyType.getSymbol();
-    }
-
-    public EnemyType getEnemyType() {
-        return enemyType;
+    public String getSymbol () {
+        return "\uD83D\uDC79";
     }
 
     public Position getPosition() {
