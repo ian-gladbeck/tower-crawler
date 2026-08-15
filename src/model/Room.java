@@ -19,6 +19,16 @@ public class Room {
         enemies.add(enemy);
     }
 
+    public Enemy getEnemyInPosition (int y, int x) {
+        for (Enemy enemy : enemies) {
+            if (enemy.getPosition().getY() == y
+                    && enemy.getPosition().getX() == x) {
+                return enemy;
+            }
+        }
+        return null;
+    }
+
     public List<Enemy> getEnemies() {
         return enemies;
     }
