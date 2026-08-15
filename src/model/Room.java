@@ -1,14 +1,26 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Room {
     private int height;
     private int width;
     private Tile[][] grid;
+    private List<Enemy> enemies = new ArrayList<>();
 
     public Room(int height, int width) {
         this.height = height;
         this.width = width;
         this.grid = new Tile[height][width];
+    }
+
+    public void addEnemy (Enemy enemy) {
+        enemies.add(enemy);
+    }
+
+    public List<Enemy> getEnemies() {
+        return enemies;
     }
 
     public int getHeight() {

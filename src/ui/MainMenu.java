@@ -17,8 +17,9 @@ public class MainMenu {
     public void initialMenu () {
         try {
             System.out.println("===TOWER CRAWLER===");
+            System.out.println("Gold: " + gameManager.getGameEngine().getPlayer().getGold());
             System.out.println("[1]- Play Room " +
-                    (gameManager.getGameEngine().getNumberRoom() + 1));
+                    (gameManager.getGameEngine().getNumberRoom()));
             System.out.println("[2]- Exit");
             System.out.print("Enter: ");
             int option = Integer.parseInt(sc.nextLine());

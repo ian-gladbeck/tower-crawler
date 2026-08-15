@@ -22,7 +22,7 @@ public class GameManager {
         Room room = gameEngine.getRoomGeneration().createRoom();
         while (true) {
             try {
-                System.out.println("    ==== ROOM " + (gameEngine.getNumberRoom() + 1) + " ====");
+                System.out.println("    ==== ROOM " + gameEngine.getNumberRoom() + " ====");
                 roomRenderer.printRoom(room, gameEngine.getPlayer());
                 if (gameEngine.checkWin()) {
                     System.out.println("You Win!!!");

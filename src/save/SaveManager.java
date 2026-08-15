@@ -29,7 +29,7 @@ public class SaveManager {
             int numberRoom = Integer.parseInt(lines[3]);
             return new SaveData(name, life, gold, numberRoom);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+
         }
         return null;
     }

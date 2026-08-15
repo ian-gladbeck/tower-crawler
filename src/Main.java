@@ -8,6 +8,8 @@ import save.SaveData;
 import save.SaveManager;
 import ui.MainMenu;
 import ui.RoomRenderer;
+
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -30,7 +32,7 @@ public class Main {
             gameEngine = new GameEngine(player, room, roomGeneration, saveData.getNumberRoom());
         }
         else {
-            gameEngine = new GameEngine(player, room, roomGeneration, 0);
+            gameEngine = new GameEngine(player, room, roomGeneration, 1);
         }
         GameManager gameManager = new GameManager(sc, gameEngine, new RoomRenderer());
         MainMenu mainMenu = new MainMenu(sc, gameManager);

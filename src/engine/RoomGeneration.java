@@ -1,7 +1,7 @@
 package engine;
 
-import model.Room;
-import model.Tile;
+import model.*;
+
 import java.util.Random;
 
 public class RoomGeneration {
