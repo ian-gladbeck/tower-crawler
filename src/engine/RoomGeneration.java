@@ -63,6 +63,7 @@ public class RoomGeneration {
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
                 if (i == 0 && j == 0) continue;
+                if (i == room.getHeight() - 1 && j == room.getWidth() - 1) continue;
                 if (room.getGrid()[i][j] == Tile.BARRIER) continue;
                 if (room.getGrid()[i][j] == Tile.EXIT) continue;
                 if (random.nextInt(10) == 1) {
