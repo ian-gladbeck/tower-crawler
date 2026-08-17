@@ -1,10 +1,7 @@
 package engine;
 
 import exception.InvalidMovementException;
-import model.Player;
-import model.Position;
-import model.Room;
-import model.Tile;
+import model.*;
 
 import java.util.InputMismatchException;
 
@@ -29,6 +26,19 @@ public class GameEngine {
                 newPosition.getX());
     }
 
+    public void playerAttack (Enemy enemy) {
+        player.attack();
+        enemy.takeDamage(50);
+        player.takeDamage(20);
+        room.removeEnemy(enemy);
+    }
+
+    public void playerFlee (Position previousPosition) {
+        player.takeDamage(50);
+        player.getPosition().setPosition(previousPosition.getY(),
+                previousPosition.getX());
+    }
+
     public boolean checkWin () {
         if (room.getGrid()[player.getPosition().getY()]
                 [player.getPosition().getX()] == Tile.EXIT) {
@@ -37,6 +47,18 @@ public class GameEngine {
             return true;
         }
         return false;
+    }
+
+    public Enemy checkEnemy () {
+        for (Enemy enemy : room.getEnemies()) {
+            if (enemy.getPosition().getX()
+                    == player.getPosition().getX()
+                    && enemy.getPosition().getY()
+                    == player.getPosition().getY()) {
+                return enemy;
+            }
+        }
+        return null;
     }
 
     private Position checkMovement (char direction) {

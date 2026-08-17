@@ -1,6 +1,9 @@
 package engine;
 
 import exception.InvalidMovementException;
+import model.Enemy;
+import model.Player;
+import model.Position;
 import model.Room;
 import ui.RoomRenderer;
 
@@ -22,20 +25,60 @@ public class GameManager {
         Room room = gameEngine.getRoomGeneration().createRoom();
         while (true) {
             try {
+                roomRenderer.clearScreen();
                 System.out.println("    ==== ROOM " + gameEngine.getNumberRoom() + " ====");
+                System.out.println("Your Life: " + gameEngine.getPlayer().getLife());
+                if (gameEngine.getPlayer().isHasSword()) {
+                    System.out.println("Sword durability: " + gameEngine.getPlayer().getSwordDurability());
+                }
                 roomRenderer.printRoom(room, gameEngine.getPlayer());
                 if (gameEngine.checkWin()) {
                     System.out.println("You Win!!!");
                     break;
                 }
                 System.out.print("Move (w/a/s/d): ");
+                Position lastPosition = new Position(
+                        gameEngine.getPlayer().getPosition().getY(),
+                        gameEngine.getPlayer().getPosition().getX()
+                );
                 char direction = sc.nextLine().toLowerCase().charAt(0);
                 gameEngine.movePlayer(direction);
+                Enemy enemy = gameEngine.checkEnemy();
+                if (enemy != null) {
+                    combat(gameEngine.getPlayer(), enemy, lastPosition);
+                }
                 if (gameEngine.checkGold(gameEngine.getPlayer().getPosition()))
                     System.out.println("+10 GOLD!!");
             }
             catch(InvalidMovementException | InputMismatchException e){
                 System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void combat (Player player, Enemy enemy, Position lastPosition) {
+        int choice = 3;
+        while (choice != 1 && choice != 2) {
+            System.out.println("[1]- Attack");
+            System.out.println("[2]- Flee");
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice == 1) {
+                if (!player.isHasSword()) {
+                    System.out.println("You don't have sword!!");
+                    choice = 3;
+                    continue;
+                }
+                gameEngine.playerAttack(enemy);
+                System.out.println("You Kill enemy, but he attacks you");
+                System.out.println("-20 Life!");
+            }
+            else if (choice == 2) {
+                gameEngine.playerFlee(lastPosition);
+                System.out.println("You escape, but enemy attacks you");
+                System.out.println("-50 life!");
+            }
+            else {
+                System.out.println("Invalid Input");
             }
         }
     }

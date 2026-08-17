@@ -19,6 +19,8 @@ public class Room {
         enemies.add(enemy);
     }
 
+    public void removeEnemy (Enemy enemy) { enemies.remove(enemy); }
+
     public Enemy getEnemyInPosition (int y, int x) {
         for (Enemy enemy : enemies) {
             if (enemy.getPosition().getY() == y

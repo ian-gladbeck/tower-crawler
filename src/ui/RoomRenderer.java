@@ -8,7 +8,6 @@ import model.Room;
 public class RoomRenderer {
 
     public void printRoom (Room room, Player player) {
-        clearScreen();
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
                 if (player.getPosition().getY() == i
@@ -28,11 +27,7 @@ public class RoomRenderer {
     }
 
     public void clearScreen() {
-        try {
-            new ProcessBuilder("clear").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            System.out.print("\u001b[H\u001b[2J");
-            System.out.flush();
-        }
+        System.out.print("\u001b[H\u001b[2J");
+        System.out.flush();
     }
 }
