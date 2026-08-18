@@ -22,8 +22,7 @@ public class GameEngine {
         Position newPosition = checkMovement(direction);
         if (newPosition == null)
             throw new InvalidMovementException("You cannot move in that direction");
-        player.getPosition().setPosition(newPosition.getY(),
-                newPosition.getX());
+        player.setPosition(newPosition);
     }
 
     public void playerAttack (Enemy enemy) {
@@ -35,8 +34,7 @@ public class GameEngine {
 
     public void playerFlee (Position previousPosition) {
         player.takeDamage(50);
-        player.getPosition().setPosition(previousPosition.getY(),
-                previousPosition.getX());
+        player.setPosition(previousPosition);
     }
 
     public boolean checkWin () {
@@ -71,16 +69,16 @@ public class GameEngine {
                 || x > room.getWidth() - 1 || x < 0)
             return null;
 
-        if (room.getTile(y, x) == Tile.BARRIER)
+        if (!room.getTile(y, x).isWalkable())
             return null;
 
         return new Position(y, x);
     }
 
-    public boolean checkGold (Position position) {
+    public boolean checkDiamond(Position position) {
         if (room.getTile(position)
             == Tile.GOLD) {
-            player.collectGold(10);
+            player.collectDiamond(10);
             room.setTile(position, Tile.PATH);
             return true;
         }

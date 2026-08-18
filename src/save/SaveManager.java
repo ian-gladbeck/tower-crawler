@@ -10,8 +10,8 @@ public class SaveManager {
 
     public static void save (Player player, int numberRoom) {
         try {
-            String data = player.getName() + "\n" + player.getLife() + "\n"
-                    + player.getGold() + "\n" + numberRoom;
+            String data = player.getLife() + "\n"
+                    + player.getDiamonds() + "\n" + numberRoom;
             Files.writeString(path, data);
         }
         catch (IOException e) {
@@ -29,11 +29,10 @@ public class SaveManager {
                 return null;
             }
             String[] lines = content.split("\n");
-            String name = lines[0];
-            int life = Integer.parseInt(lines[1]);
-            int gold = Integer.parseInt(lines[2]);
-            int numberRoom = Integer.parseInt(lines[3]);
-            return new SaveData(name, life, gold, numberRoom);
+            int life = Integer.parseInt(lines[0]);
+            int diamonds = Integer.parseInt(lines[1]);
+            int numberRoom = Integer.parseInt(lines[2]);
+            return new SaveData(life, diamonds, numberRoom);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

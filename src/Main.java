@@ -19,13 +19,11 @@ public class Main {
         RoomGeneration roomGeneration = new RoomGeneration(room);
         GameEngine gameEngine;
         if (saveData != null) {
-            player = new Player(saveData.getName(), saveData.getLife(), new Position(0, 0), saveData.getGold());
+            player = new Player("\uD83D\uDC82", saveData);
             gameEngine = new GameEngine(player, room, roomGeneration, saveData.getNumberRoom());
         }
         else {
-            System.out.print("Give your character a name: ");
-            String name = sc.nextLine();
-            player = new Player(name, 200, new Position(0, 0), 0);
+            player = new Player("\uD83D\uDC82", 200);
             gameEngine = new GameEngine(player, room, roomGeneration, 1);
         }
         GameManager gameManager = new GameManager(sc, gameEngine, new RoomRenderer());

@@ -1,30 +1,12 @@
 package model;
 
-public class Enemy {
-    private Position position;
-    private int life;
-    private final String symbol = "\uD83D\uDC79";
-
-    public Enemy(Position position, int life) {
-        this.position = position;
-        this.life = life;
+public class Enemy extends Entity {
+    public Enemy(String symbol, int life, Position position) {
+        super(symbol, life, position);
     }
 
-    public void takeDamage (int damage) {
-        if (life > 0) {
-            this.life -= damage;
-        }
-    }
+    @Override
+    public void attack() {
 
-    public String getSymbol () {
-        return symbol;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public int getLife() {
-        return life;
     }
 }

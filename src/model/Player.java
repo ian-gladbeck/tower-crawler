@@ -1,74 +1,49 @@
 package model;
 
-public class Player {
-    private String name;
-    private final String symbol = "\uD83D\uDC82";
-    private int gold;
-    private int life;
-    private Position position;
-    private boolean hasSword;
+import save.SaveData;
+
+public class Player extends Entity{
+    private int diamonds;
     private int swordDurability;
 
-    public Player(String name, int life, Position position, int gold) {
-        this.name = name;
-        this.life = life;
-        this.position = position;
-        this.gold = gold;
-        this.swordDurability = 10;
-        this.hasSword = true;
+    public Player(String symbol, int life) {
+        super(symbol, life, new Position(0, 0));
+        this.swordDurability = 5;
+    }
+
+    public Player(String symbol, SaveData saveData) {
+        super(symbol, saveData.getLife(), new Position(0, 0));
+        this.swordDurability = 5;
     }
 
     public void resetPlayerPosition () {
-        this.position = new Position(0, 0);
+        setPosition(0, 0);
     }
 
-    public void takeDamage (int damage) {
-        this.life -= damage;
-    }
-
+    @Override
     public void attack () {
-        if (this.swordDurability > 0) {
+        if (hasSword()) {
             this.swordDurability -= 1;
-            if (this.swordDurability == 0) {
-                this.hasSword = false;
+            if (!hasSword()) {
                 System.out.println("Your sword broke!");
             }
         }
     }
 
-
-    public void collectGold (int gold) {
-        if (gold > 0)
-            this.gold += gold;
+    public boolean hasSword () {
+        return this.swordDurability > 0;
     }
 
-
-    public int getGold() {
-        return gold;
+    public void collectDiamond(int diamonds) {
+        if (diamonds > 0)
+            this.diamonds += diamonds;
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    public int getLife() {
-        return life;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public boolean isHasSword() {
-        return hasSword;
+    public int getDiamonds() {
+        return diamonds;
     }
 
     public int getSwordDurability() {
         return swordDurability;
-    }
-
-    public String getSymbol() {
-        return symbol;
     }
 }

@@ -1,28 +1,22 @@
 package save;
 
 public class SaveData {
-    private String name;
     private int life;
-    private int gold;
+    private int diamonds;
     private int numberRoom;
 
-    public SaveData(String name, int life, int gold, int numberRoom) {
-        this.name = name;
+    public SaveData(int life, int gold, int numberRoom) {
         this.life = life;
-        this.gold = gold;
+        this.diamonds = gold;
         this.numberRoom = numberRoom;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getLife() {
         return life;
     }
 
-    public int getGold() {
-        return gold;
+    public int getDiamonds() {
+        return diamonds;
     }
 
     public int getNumberRoom() {

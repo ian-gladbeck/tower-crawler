@@ -28,7 +28,7 @@ public class GameManager {
                 roomRenderer.clearScreen();
                 System.out.println("    ==== ROOM " + gameEngine.getNumberRoom() + " ====");
                 System.out.println("Your Life: " + gameEngine.getPlayer().getLife());
-                if (gameEngine.getPlayer().isHasSword()) {
+                if (gameEngine.getPlayer().hasSword()) {
                     System.out.println("Sword durability: " + gameEngine.getPlayer().getSwordDurability());
                 }
                 roomRenderer.printRoom(room, gameEngine.getPlayer());
@@ -47,8 +47,8 @@ public class GameManager {
                 if (enemy != null) {
                     combat(gameEngine.getPlayer(), enemy, lastPosition);
                 }
-                if (gameEngine.checkGold(gameEngine.getPlayer().getPosition()))
-                    System.out.println("+10 GOLD!!");
+                if (gameEngine.checkDiamond(gameEngine.getPlayer().getPosition()))
+                    System.out.println("+10 DIAMONDS!!");
             }
             catch(InvalidMovementException | InputMismatchException
                   | StringIndexOutOfBoundsException e) {
@@ -64,7 +64,7 @@ public class GameManager {
             System.out.println("[2]- Flee");
             choice = Integer.parseInt(sc.nextLine());
             if (choice == 1) {
-                if (!player.isHasSword()) {
+                if (!player.hasSword()) {
                     System.out.println("You don't have sword!!");
                     choice = 3;
                     continue;
