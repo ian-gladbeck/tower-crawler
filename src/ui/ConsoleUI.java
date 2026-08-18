@@ -5,8 +5,14 @@ import model.Player;
 import model.Position;
 import model.Room;
 
-public class RoomRenderer {
+public class ConsoleUI {
 
+    public void printHUD (Player player, int numRoom) {
+        System.out.println("=====ROOM " + numRoom + "=====");
+        System.out.println("Your Life: " + player.getLife());
+        if (player.hasSword())
+            System.out.println("Sword Durability: " + player.getSwordDurability());
+    }
     public void printRoom (Room room, Player player) {
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {

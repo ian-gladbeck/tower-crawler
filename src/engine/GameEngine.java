@@ -18,6 +18,12 @@ public class GameEngine {
         this.numberRoom = numberRoom;
     }
 
+    public void nextRoom () {
+        this.numberRoom ++;
+        this.room = roomGeneration.createRoom();
+        this.player.resetPlayerPosition();
+    }
+
     public void movePlayer (char direction) {
         Position newPosition = checkMovement(direction);
         if (newPosition == null)
@@ -37,12 +43,7 @@ public class GameEngine {
     }
 
     public boolean checkWin () {
-        if (room.getTile(player.getPosition()) == Tile.EXIT) {
-            player.resetPlayerPosition();
-            numberRoom++;
-            return true;
-        }
-        return false;
+        return room.getTile(player.getPosition()) == Tile.EXIT;
     }
 
     public Enemy checkEnemy () {

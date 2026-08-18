@@ -2,12 +2,11 @@ import engine.GameEngine;
 import engine.GameManager;
 import engine.RoomGeneration;
 import model.Player;
-import model.Position;
 import model.Room;
 import save.SaveData;
 import save.SaveManager;
 import ui.MainMenu;
-import ui.RoomRenderer;
+import ui.ConsoleUI;
 import java.util.Scanner;
 
 public class Main {
@@ -26,7 +25,7 @@ public class Main {
             player = new Player("\uD83D\uDC82", 200);
             gameEngine = new GameEngine(player, room, roomGeneration, 1);
         }
-        GameManager gameManager = new GameManager(sc, gameEngine, new RoomRenderer());
+        GameManager gameManager = new GameManager(sc, gameEngine, new ConsoleUI());
         MainMenu mainMenu = new MainMenu(sc, gameManager);
         while (true) {
             mainMenu.initialMenu();

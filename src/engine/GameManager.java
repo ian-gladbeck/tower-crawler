@@ -5,7 +5,7 @@ import model.Enemy;
 import model.Player;
 import model.Position;
 import model.Room;
-import ui.RoomRenderer;
+import ui.ConsoleUI;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,25 +13,20 @@ import java.util.Scanner;
 public class GameManager {
     private Scanner sc;
     private GameEngine gameEngine;
-    private RoomRenderer roomRenderer;
+    private ConsoleUI consoleUI;
 
-    public GameManager(Scanner sc, GameEngine gameEngine, RoomRenderer roomRenderer) {
+    public GameManager(Scanner sc, GameEngine gameEngine, ConsoleUI ui) {
         this.sc = sc;
         this.gameEngine = gameEngine;
-        this.roomRenderer = roomRenderer;
+        this.consoleUI = ui;
     }
 
     public void startRoom () {
         Room room = gameEngine.getRoomGeneration().createRoom();
         while (true) {
             try {
-                roomRenderer.clearScreen();
-                System.out.println("    ==== ROOM " + gameEngine.getNumberRoom() + " ====");
-                System.out.println("Your Life: " + gameEngine.getPlayer().getLife());
-                if (gameEngine.getPlayer().hasSword()) {
-                    System.out.println("Sword durability: " + gameEngine.getPlayer().getSwordDurability());
-                }
-                roomRenderer.printRoom(room, gameEngine.getPlayer());
+                consoleUI.printHUD(gameEngine.getPlayer(), gameEngine.getNumberRoom());
+                consoleUI.printRoom(room, gameEngine.getPlayer());
                 if (gameEngine.checkWin()) {
                     System.out.println("You Win!!!");
                     break;
@@ -88,7 +83,7 @@ public class GameManager {
         return gameEngine;
     }
 
-    public RoomRenderer getRoomRenderer() {
-        return roomRenderer;
+    public ConsoleUI getConsoleUI() {
+        return consoleUI;
     }
 }
