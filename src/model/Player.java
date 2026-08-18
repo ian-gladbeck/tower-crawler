@@ -2,6 +2,7 @@ package model;
 
 public class Player {
     private String name;
+    private final String symbol = "\uD83D\uDC82";
     private int gold;
     private int life;
     private Position position;
@@ -65,5 +66,9 @@ public class Player {
 
     public int getSwordDurability() {
         return swordDurability;
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 }

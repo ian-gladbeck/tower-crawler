@@ -3,6 +3,7 @@ package model;
 public class Enemy {
     private Position position;
     private int life;
+    private final String symbol = "\uD83D\uDC79";
 
     public Enemy(Position position, int life) {
         this.position = position;
@@ -16,7 +17,7 @@ public class Enemy {
     }
 
     public String getSymbol () {
-        return "\uD83D\uDC79";
+        return symbol;
     }
 
     public Position getPosition() {
