@@ -38,8 +38,8 @@ public class GameManager {
                 }
                 System.out.print("Move (w/a/s/d): ");
                 Position lastPosition = new Position(
-                        gameEngine.getPlayer().getPosition().getY(),
-                        gameEngine.getPlayer().getPosition().getX()
+                        gameEngine.getPlayer().getPosition().getX(),
+                        gameEngine.getPlayer().getPosition().getY()
                 );
                 char direction = sc.nextLine().toLowerCase().charAt(0);
                 gameEngine.movePlayer(direction);

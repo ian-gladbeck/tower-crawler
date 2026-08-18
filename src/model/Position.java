@@ -3,12 +3,12 @@ package model;
 import java.util.Objects;
 
 public class Position {
-    private int y;
     private int x;
+    private int y;
 
-    public Position(int y, int x) {
-        this.y = y;
+    public Position(int x, int y) {
         this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Position {
         return x;
     }
 
-    public void setPosition (int y, int x) {
+    public void setPosition (int x, int y) {
         this.x = x;
         this.y = y;
     }

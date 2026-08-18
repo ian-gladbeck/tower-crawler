@@ -15,7 +15,7 @@ public class Room {
         this.grid = new Tile[height][width];
     }
 
-    public Tile getTile (int y, int x) {
+    public Tile getTile (int x, int y) {
         return grid[y][x];
     }
 
@@ -23,7 +23,7 @@ public class Room {
         return grid[pos.getY()][pos.getX()];
     }
 
-    public void setTile(int y, int x, Tile tile) {
+    public void setTile(int x, int y, Tile tile) {
         this.grid[y][x] = tile;
     }
 

@@ -8,10 +8,10 @@ import model.Room;
 public class RoomRenderer {
 
     public void printRoom (Room room, Player player) {
-        Enemy[][] enemies = new Enemy[room.getHeight()][room.getWidth()];
+        Enemy[][] enemies = new Enemy[room.getWidth()][room.getHeight()];
         for (Enemy enemy : room.getEnemies()) {
             Position pos = enemy.getPosition();
-            enemies[pos.getY()][pos.getX()] = enemy;
+            enemies[pos.getX()][pos.getY()] = enemy;
         }
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
@@ -20,12 +20,12 @@ public class RoomRenderer {
                     System.out.print(player.getSymbol() + " ");
                     continue;
                 }
-                Enemy enemy = enemies[i][j];
+                Enemy enemy = enemies[j][i];
                 if (enemy != null) {
                     System.out.print(enemy.getSymbol() + " ");
                     continue;
                 }
-                System.out.print(room.getTile(i, j).getSymbol() + " ");
+                System.out.print(room.getTile(j, i).getSymbol() + " ");
             }
             System.out.println();
         }

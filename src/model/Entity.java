@@ -17,12 +17,12 @@ public abstract class Entity {
 
     public abstract void attack ();
 
-    public void setPosition (int y, int x) {
-        this.position.setPosition(y, x);
+    public void setPosition (int x, int y) {
+        this.position.setPosition(x, y);
     }
 
     public void setPosition (Position pos) {
-        this.position.setPosition(pos.getY(), pos.getX());
+        this.position.setPosition(pos.getX(), pos.getY());
     }
 
     public void takeDamage (int damage) {

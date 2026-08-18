@@ -69,10 +69,10 @@ public class GameEngine {
                 || x > room.getWidth() - 1 || x < 0)
             return null;
 
-        if (!room.getTile(y, x).isWalkable())
+        if (!room.getTile(x, y).isWalkable())
             return null;
 
-        return new Position(y, x);
+        return new Position(x, y);
     }
 
     public boolean checkDiamond(Position position) {
