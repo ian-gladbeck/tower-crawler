@@ -8,8 +8,6 @@ import save.SaveData;
 import save.SaveManager;
 import ui.MainMenu;
 import ui.RoomRenderer;
-
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -17,21 +15,17 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         SaveData saveData = SaveManager.load();
         Player player;
-        if (saveData == null) {
-            System.out.print("Give your character a name: ");
-            String name = sc.nextLine();
-            player = new Player(name, 200, new Position(0, 0), 0);
-        }
-        else {
-            player = new Player(saveData.getName(), saveData.getLife(), new Position(0, 0), saveData.getGold());
-        }
         Room room = new Room(8, 12);
         RoomGeneration roomGeneration = new RoomGeneration(room);
         GameEngine gameEngine;
         if (saveData != null) {
+            player = new Player(saveData.getName(), saveData.getLife(), new Position(0, 0), saveData.getGold());
             gameEngine = new GameEngine(player, room, roomGeneration, saveData.getNumberRoom());
         }
         else {
+            System.out.print("Give your character a name: ");
+            String name = sc.nextLine();
+            player = new Player(name, 200, new Position(0, 0), 0);
             gameEngine = new GameEngine(player, room, roomGeneration, 1);
         }
         GameManager gameManager = new GameManager(sc, gameEngine, new RoomRenderer());

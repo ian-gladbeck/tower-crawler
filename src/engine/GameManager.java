@@ -50,7 +50,8 @@ public class GameManager {
                 if (gameEngine.checkGold(gameEngine.getPlayer().getPosition()))
                     System.out.println("+10 GOLD!!");
             }
-            catch(InvalidMovementException | InputMismatchException e){
+            catch(InvalidMovementException | InputMismatchException
+                  | StringIndexOutOfBoundsException e) {
                 System.out.println(e.getMessage());
             }
         }

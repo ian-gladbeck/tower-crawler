@@ -42,7 +42,7 @@ public class GameEngine {
     public boolean checkWin () {
         if (room.getGrid()[player.getPosition().getY()]
                 [player.getPosition().getX()] == Tile.EXIT) {
-            player.setPlayerPosition();
+            player.resetPlayerPosition();
             numberRoom++;
             return true;
         }

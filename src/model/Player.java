@@ -17,7 +17,7 @@ public class Player {
         this.hasSword = true;
     }
 
-    public void setPlayerPosition () {
+    public void resetPlayerPosition () {
         this.position = new Position(0, 0);
     }
 
