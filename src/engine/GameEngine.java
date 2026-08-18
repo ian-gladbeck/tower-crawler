@@ -50,10 +50,7 @@ public class GameEngine {
 
     public Enemy checkEnemy () {
         for (Enemy enemy : room.getEnemies()) {
-            if (enemy.getPosition().getX()
-                    == player.getPosition().getX()
-                    && enemy.getPosition().getY()
-                    == player.getPosition().getY()) {
+            if (player.getPosition().equals(enemy.getPosition())) {
                 return enemy;
             }
         }
