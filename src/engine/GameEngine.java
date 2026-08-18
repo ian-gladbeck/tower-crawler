@@ -46,17 +46,12 @@ public class GameEngine {
     }
 
     public Enemy checkEnemy () {
-        for (Enemy enemy : room.getEnemies()) {
-            if (player.getPosition().equals(enemy.getPosition())) {
-                return enemy;
-            }
-        }
-        return null;
+        return room.getEnemyAt(player.getPosition());
     }
 
     private Position checkMovement (char direction) {
-        int y = player.getPosition().getY();
         int x = player.getPosition().getX();
+        int y = player.getPosition().getY();
         switch (direction) {
             case 'd' -> x++;
             case 'a' -> x--;
@@ -64,11 +59,7 @@ public class GameEngine {
             case 's' -> y++;
             default -> throw new InputMismatchException("Invalid Input");
         }
-        if (y > room.getHeight() - 1 || y < 0
-                || x > room.getWidth() - 1 || x < 0)
-            return null;
-
-        if (!room.getTile(x, y).isWalkable())
+        if (!room.isWithinBounds(x, y) || !room.getTile(x, y).isWalkable())
             return null;
 
         return new Position(x, y);

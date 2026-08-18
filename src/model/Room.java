@@ -15,6 +15,18 @@ public class Room {
         this.grid = new Tile[height][width];
     }
 
+    public Enemy getEnemyAt (Position pos) {
+        for (Enemy enemy : enemies) {
+            if (enemy.getPosition().equals(pos))
+                return enemy;
+        }
+        return null;
+    }
+
+    public boolean isWithinBounds (int x, int y) {
+        return x >= 0 && x < width && y >= 0 && y < height;
+    }
+
     public Tile getTile (int x, int y) {
         return grid[y][x];
     }

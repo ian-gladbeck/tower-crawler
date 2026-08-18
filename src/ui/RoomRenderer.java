@@ -8,24 +8,17 @@ import model.Room;
 public class RoomRenderer {
 
     public void printRoom (Room room, Player player) {
-        Enemy[][] enemies = new Enemy[room.getWidth()][room.getHeight()];
-        for (Enemy enemy : room.getEnemies()) {
-            Position pos = enemy.getPosition();
-            enemies[pos.getX()][pos.getY()] = enemy;
-        }
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
-                if (player.getPosition().getY() == i
-                        && player.getPosition().getX() == j) {
+                Position currentPos = new Position(j, i);
+                if (player.getPosition().equals(currentPos))
                     System.out.print(player.getSymbol() + " ");
-                    continue;
+                else {
+                    Enemy enemy = room.getEnemyAt(currentPos);
+                    String symbol = (enemy != null ? enemy.getSymbol()
+                            : room.getTile(currentPos).getSymbol());
+                    System.out.print(symbol + " ");
                 }
-                Enemy enemy = enemies[j][i];
-                if (enemy != null) {
-                    System.out.print(enemy.getSymbol() + " ");
-                    continue;
-                }
-                System.out.print(room.getTile(j, i).getSymbol() + " ");
             }
             System.out.println();
         }
