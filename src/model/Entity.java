@@ -15,7 +15,7 @@ public abstract class Entity {
         return this.life > 0;
     }
 
-    public abstract void attack ();
+    public abstract void attack (Entity target);
 
     public void setPosition (int x, int y) {
         this.position.setPosition(x, y);

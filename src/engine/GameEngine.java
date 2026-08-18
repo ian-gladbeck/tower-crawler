@@ -26,9 +26,8 @@ public class GameEngine {
     }
 
     public void playerAttack (Enemy enemy) {
-        player.attack();
-        enemy.takeDamage(50);
-        player.takeDamage(20);
+        player.attack(enemy);
+        enemy.attack(player);
         room.removeEnemy(enemy);
     }
 

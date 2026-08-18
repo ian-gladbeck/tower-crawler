@@ -6,7 +6,7 @@ public class Enemy extends Entity {
     }
 
     @Override
-    public void attack() {
-
+    public void attack(Entity target) {
+        target.takeDamage(20);
     }
 }

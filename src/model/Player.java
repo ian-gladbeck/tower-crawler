@@ -21,9 +21,10 @@ public class Player extends Entity{
     }
 
     @Override
-    public void attack () {
+    public void attack (Entity target) {
         if (hasSword()) {
             this.swordDurability -= 1;
+            target.takeDamage(50);
             if (!hasSword()) {
                 System.out.println("Your sword broke!");
             }
