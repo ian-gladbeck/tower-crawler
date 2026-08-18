@@ -15,21 +15,27 @@ public class Room {
         this.grid = new Tile[height][width];
     }
 
+    public Tile getTile (int y, int x) {
+        return grid[y][x];
+    }
+
+    public Tile getTile (Position pos) {
+        return grid[pos.getY()][pos.getX()];
+    }
+
+    public void setTile(int y, int x, Tile tile) {
+        this.grid[y][x] = tile;
+    }
+
+    public void setTile(Position pos, Tile tile) {
+        this.grid[pos.getY()][pos.getX()] = tile;
+    }
+
     public void addEnemy (Enemy enemy) {
         enemies.add(enemy);
     }
 
     public void removeEnemy (Enemy enemy) { enemies.remove(enemy); }
-
-    public Enemy getEnemyInPosition (int y, int x) {
-        for (Enemy enemy : enemies) {
-            if (enemy.getPosition().getY() == y
-                    && enemy.getPosition().getX() == x) {
-                return enemy;
-            }
-        }
-        return null;
-    }
 
     public List<Enemy> getEnemies() {
         return enemies;
@@ -41,9 +47,5 @@ public class Room {
 
     public int getWidth() {
         return width;
-    }
-
-    public Tile[][] getGrid() {
-        return grid;
     }
 }

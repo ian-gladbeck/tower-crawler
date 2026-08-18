@@ -15,7 +15,7 @@ public class RoomGeneration {
     private void resetRoom () {
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
-                room.getGrid()[i][j] = null;
+                room.setTile(i, j, null);
             }
         }
         room.getEnemies().clear();
@@ -25,8 +25,8 @@ public class RoomGeneration {
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
                 if (random.nextInt(5) == 1
-                        && room.getGrid()[i][j] == Tile.PATH)
-                    room.getGrid()[i][j] = Tile.GOLD;
+                        && room.getTile(i, j) == Tile.PATH)
+                    room.setTile(i, j, Tile.GOLD);
             }
         }
     }
@@ -40,7 +40,7 @@ public class RoomGeneration {
             else if (x == room.getWidth() - 1) y++;
             else if (random.nextBoolean()) y++;
             else x++;
-            room.getGrid()[y][x] = Tile.PATH;
+            room.setTile(y, x, Tile.PATH);
         }
     }
 
@@ -48,13 +48,13 @@ public class RoomGeneration {
         for (int i = 0; i < room.getHeight(); i++) {
             for (int j = 0; j < room.getWidth(); j++) {
                 if (i == 0 && j == 0)
-                    room.getGrid()[i][j] = Tile.PATH;
-                if (room.getGrid()[i][j] == Tile.PATH
-                        || room.getGrid()[i][j] == Tile.GOLD) continue;
+                    room.setTile(i, j, Tile.PATH);
+                if (room.getTile(i, j) == Tile.PATH
+                        || room.getTile(i, j) == Tile.GOLD) continue;
                 if (random.nextBoolean())
-                    room.getGrid()[i][j] = Tile.PATH;
+                    room.setTile(i, j, Tile.PATH);
                 else
-                    room.getGrid()[i][j] = Tile.BARRIER;
+                    room.setTile(i, j, Tile.BARRIER);
             }
         }
     }
@@ -64,8 +64,8 @@ public class RoomGeneration {
             for (int j = 0; j < room.getWidth(); j++) {
                 if (i == 0 && j == 0) continue;
                 if (i == room.getHeight() - 1 && j == room.getWidth() - 1) continue;
-                if (room.getGrid()[i][j] == Tile.BARRIER) continue;
-                if (room.getGrid()[i][j] == Tile.EXIT) continue;
+                if (room.getTile(i, j) == Tile.BARRIER) continue;
+                if (room.getTile(i, j) == Tile.EXIT) continue;
                 if (random.nextInt(10) == 1) {
                     Enemy enemy = new Enemy(new Position(i, j), 50);
                     room.addEnemy(enemy);
@@ -75,7 +75,7 @@ public class RoomGeneration {
     }
 
     private void putExit () {
-        room.getGrid()[room.getHeight() - 1][room.getWidth() - 1] = Tile.EXIT;
+        room.setTile(room.getHeight() - 1, room.getWidth() - 1, Tile.EXIT);
     }
 
     public Room createRoom () {

@@ -25,7 +25,7 @@ public class RoomRenderer {
                     System.out.print(enemy.getSymbol() + " ");
                     continue;
                 }
-                System.out.print(room.getGrid()[i][j].getSymbol() + " ");
+                System.out.print(room.getTile(i, j).getSymbol() + " ");
             }
             System.out.println();
         }

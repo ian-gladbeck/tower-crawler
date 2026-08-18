@@ -40,8 +40,7 @@ public class GameEngine {
     }
 
     public boolean checkWin () {
-        if (room.getGrid()[player.getPosition().getY()]
-                [player.getPosition().getX()] == Tile.EXIT) {
+        if (room.getTile(player.getPosition()) == Tile.EXIT) {
             player.resetPlayerPosition();
             numberRoom++;
             return true;
@@ -75,17 +74,17 @@ public class GameEngine {
                 || x > room.getWidth() - 1 || x < 0)
             return null;
 
-        if (room.getGrid()[y][x] == Tile.BARRIER)
+        if (room.getTile(y, x) == Tile.BARRIER)
             return null;
 
         return new Position(y, x);
     }
 
     public boolean checkGold (Position position) {
-        if (room.getGrid()[position.getY()][position.getX()]
+        if (room.getTile(position)
             == Tile.GOLD) {
             player.collectGold(10);
-            room.getGrid()[position.getY()][position.getX()] = Tile.PATH;
+            room.setTile(position, Tile.PATH);
             return true;
         }
         return false;
