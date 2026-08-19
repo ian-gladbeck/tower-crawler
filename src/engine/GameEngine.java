@@ -3,9 +3,12 @@ package engine;
 import exception.InvalidMovementException;
 import model.*;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
 public class GameEngine {
+    private List<Position> stepHistory = new ArrayList<>();
     private int numberRoom;
     private Player player;
     private Room room;
@@ -16,6 +19,10 @@ public class GameEngine {
         this.room = room;
         this.roomGeneration = roomGeneration;
         this.numberRoom = numberRoom;
+    }
+
+    public Room generateRoom () {
+        return roomGeneration.createRoom();
     }
 
     public void nextRoom () {
@@ -29,6 +36,12 @@ public class GameEngine {
         if (newPosition == null)
             throw new InvalidMovementException("You cannot move in that direction");
         player.setPosition(newPosition);
+        stepHistory.add(newPosition);
+    }
+
+    public void playerUndoMove () {
+        if (stepHistory.isEmpty()) return;
+        player.setPosition(stepHistory.remove(stepHistory.size() - 2));
     }
 
     public void playerAttack (Enemy enemy) {
@@ -37,9 +50,9 @@ public class GameEngine {
         room.removeEnemy(enemy);
     }
 
-    public void playerFlee (Position previousPosition) {
+    public void playerFlee () {
         player.takeDamage(50);
-        player.setPosition(previousPosition);
+        playerUndoMove();
     }
 
     public boolean checkWin () {
@@ -74,6 +87,10 @@ public class GameEngine {
             return true;
         }
         return false;
+    }
+
+    public Position getPlayerPosition () {
+        return  player.getPosition();
     }
 
     public int getNumberRoom() {

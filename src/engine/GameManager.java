@@ -7,7 +7,6 @@ import model.Position;
 import model.Room;
 import ui.ConsoleUI;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameManager {
@@ -22,32 +21,58 @@ public class GameManager {
     }
 
     public void startRoom () {
-        Room room = gameEngine.getRoomGeneration().createRoom();
-        while (true) {
+        Room room = gameEngine.generateRoom();
+        gameLoop(room, gameEngine.getPlayer());
+    }
+
+    private void gameLoop (Room room, Player player) {
+        while (player.isAlive()) {
             try {
-                consoleUI.printHUD(gameEngine.getPlayer(), gameEngine.getNumberRoom());
-                consoleUI.printRoom(room, gameEngine.getPlayer());
-                if (gameEngine.checkWin()) {
-                    consoleUI.printMessage("You Win!!!");
-                    break;
-                }
-                Position lastPosition = new Position(gameEngine.getPlayer().getPosition());
-                char direction = consoleUI.getMovementInput();
-                gameEngine.movePlayer(direction);
-                Enemy enemy = gameEngine.checkEnemy();
-                if (enemy != null) {
-                    combat(gameEngine.getPlayer(), enemy, lastPosition);
-                }
-                if (gameEngine.checkDiamond(gameEngine.getPlayer().getPosition()))
-                    consoleUI.printMessage("+10 DIAMONDS!!");
+                handleRenderUI(room);
+                if (checkWinCondition()) break;
+                handleMovement();
+                processCombat();
+                checkDiamond();
             }
-            catch(InvalidMovementException e) {
+            catch (InvalidMovementException e) {
                 consoleUI.printMessage(e.getMessage());
             }
         }
     }
 
-    private void combat (Player player, Enemy enemy, Position lastPosition) {
+    private void handleRenderUI (Room room) {
+        consoleUI.printHUD(gameEngine.getPlayer(), gameEngine.getNumberRoom());
+        consoleUI.printRoom(room, gameEngine.getPlayer());
+    }
+
+    private void processCombat() {
+        Enemy enemy = gameEngine.checkEnemy();
+        if (enemy != null)
+            combat(gameEngine.getPlayer(), enemy);
+    }
+
+    private boolean checkWinCondition() {
+        if (gameEngine.checkWin()) {
+            consoleUI.printMessage("You Win!!!");
+            gameEngine.nextRoom();
+            return true;
+        }
+        return false;
+    }
+
+    private void checkDiamond () {
+        if (gameEngine.checkDiamond(gameEngine.getPlayerPosition()))
+            consoleUI.printMessage("+10 DIAMONDS!!");
+    }
+
+
+    private void handleMovement () throws InvalidMovementException {
+        char direction = consoleUI.getMovementInput();
+        gameEngine.movePlayer(direction);
+    }
+
+
+    private void combat (Player player, Enemy enemy) {
         int choice = 3;
         while (choice != 1 && choice != 2) {
             System.out.println("[1]- Attack");
@@ -64,7 +89,7 @@ public class GameManager {
                 System.out.println("-20 Life!");
             }
             else if (choice == 2) {
-                gameEngine.playerFlee(lastPosition);
+                gameEngine.playerFlee();
                 System.out.println("You escape, but enemy attacks you");
                 System.out.println("-50 life!");
             }
