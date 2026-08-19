@@ -33,15 +33,16 @@ public class GameEngine {
 
     public void movePlayer (char direction) {
         Position newPosition = checkMovement(direction);
-        if (newPosition == null)
+        if (newPosition == null) {
             throw new InvalidMovementException("You cannot move in that direction");
+        }
+        stepHistory.add(new Position(player.getPosition()));
         player.setPosition(newPosition);
-        stepHistory.add(newPosition);
     }
 
     public void playerUndoMove () {
         if (stepHistory.isEmpty()) return;
-        player.setPosition(stepHistory.remove(stepHistory.size() - 2));
+        player.setPosition(stepHistory.removeLast());
     }
 
     public void playerAttack (Enemy enemy) {
