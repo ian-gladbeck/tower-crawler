@@ -28,26 +28,21 @@ public class GameManager {
                 consoleUI.printHUD(gameEngine.getPlayer(), gameEngine.getNumberRoom());
                 consoleUI.printRoom(room, gameEngine.getPlayer());
                 if (gameEngine.checkWin()) {
-                    System.out.println("You Win!!!");
+                    consoleUI.printMessage("You Win!!!");
                     break;
                 }
-                System.out.print("Move (w/a/s/d): ");
-                Position lastPosition = new Position(
-                        gameEngine.getPlayer().getPosition().getX(),
-                        gameEngine.getPlayer().getPosition().getY()
-                );
-                char direction = sc.nextLine().toLowerCase().charAt(0);
+                Position lastPosition = new Position(gameEngine.getPlayer().getPosition());
+                char direction = consoleUI.getMovementInput();
                 gameEngine.movePlayer(direction);
                 Enemy enemy = gameEngine.checkEnemy();
                 if (enemy != null) {
                     combat(gameEngine.getPlayer(), enemy, lastPosition);
                 }
                 if (gameEngine.checkDiamond(gameEngine.getPlayer().getPosition()))
-                    System.out.println("+10 DIAMONDS!!");
+                    consoleUI.printMessage("+10 DIAMONDS!!");
             }
-            catch(InvalidMovementException | InputMismatchException
-                  | StringIndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
+            catch(InvalidMovementException e) {
+                consoleUI.printMessage(e.getMessage());
             }
         }
     }

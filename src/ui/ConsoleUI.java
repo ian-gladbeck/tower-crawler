@@ -1,11 +1,39 @@
 package ui;
 
+import exception.InvalidMovementException;
 import model.Enemy;
 import model.Player;
 import model.Position;
 import model.Room;
 
+import java.sql.SQLOutput;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class ConsoleUI {
+    private final Scanner sc;
+
+    public ConsoleUI(Scanner sc) {
+        this.sc = sc;
+    }
+
+    public void printMessage (String message) {
+        System.out.println(message);
+    }
+
+    public char getMovementInput () {
+        String valid = "wasd";
+        while (true) {
+            System.out.print("Move (w/a/s/d): ");
+            String direction = sc.nextLine().trim().toLowerCase();
+            if (direction.length() != 1) {
+                System.out.println("Invalid Input! Enter (w/a/s/d)");
+                continue;
+            }
+            if (valid.contains(direction))
+                return direction.charAt(0);
+        }
+    }
 
     public void printHUD (Player player, int numRoom) {
         System.out.println("=====ROOM " + numRoom + "=====");

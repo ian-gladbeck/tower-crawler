@@ -11,6 +11,11 @@ public class Position {
         this.y = y;
     }
 
+    public Position(Position position) {
+        this.x = position.getX();
+        this.y = position.getY();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

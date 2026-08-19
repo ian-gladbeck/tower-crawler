@@ -25,7 +25,7 @@ public class Main {
             player = new Player("\uD83D\uDC82", 200);
             gameEngine = new GameEngine(player, room, roomGeneration, 1);
         }
-        GameManager gameManager = new GameManager(sc, gameEngine, new ConsoleUI());
+        GameManager gameManager = new GameManager(sc, gameEngine, new ConsoleUI(sc));
         MainMenu mainMenu = new MainMenu(sc, gameManager);
         while (true) {
             mainMenu.initialMenu();
