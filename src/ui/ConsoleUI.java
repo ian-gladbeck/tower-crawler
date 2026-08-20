@@ -42,7 +42,9 @@ public class ConsoleUI {
             System.out.println("Sword Durability: " + player.getSwordDurability());
     }
     public void printRoom (Room room, Player player) {
+        System.out.println("*------------------------*");
         for (int i = 0; i < room.getHeight(); i++) {
+            System.out.print("|");
             for (int j = 0; j < room.getWidth(); j++) {
                 Position currentPos = new Position(j, i);
                 if (player.getPosition().equals(currentPos))
@@ -54,8 +56,10 @@ public class ConsoleUI {
                     System.out.print(symbol + " ");
                 }
             }
+            System.out.print("|");
             System.out.println();
         }
+        System.out.println("*------------------------*");
     }
 
     public void clearScreen() {

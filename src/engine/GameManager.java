@@ -3,7 +3,6 @@ package engine;
 import exception.InvalidMovementException;
 import model.Enemy;
 import model.Player;
-import model.Position;
 import model.Room;
 import ui.ConsoleUI;
 
@@ -31,6 +30,7 @@ public class GameManager {
                 handleRenderUI(room);
                 if (checkWinCondition()) break;
                 handleMovement();
+                consoleUI.clearScreen();
                 processCombat();
                 checkDiamond();
             }
