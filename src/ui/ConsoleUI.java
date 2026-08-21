@@ -1,13 +1,7 @@
 package ui;
 
-import exception.InvalidMovementException;
-import model.Enemy;
-import model.Player;
-import model.Position;
-import model.Room;
+import model.*;
 
-import java.sql.SQLOutput;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConsoleUI {
@@ -19,6 +13,55 @@ public class ConsoleUI {
 
     public void printMessage (String message) {
         System.out.println(message);
+    }
+
+    public void printLogo() {
+        System.out.println("          ___________________  __      _______________________          \n" +
+                "          \\__    ___/\\_____  \\/  \\    /  \\_   _____/\\______   \\         \n" +
+                "            |    |    /   |   \\   \\/\\/   /|    __)_  |       _/         \n" +
+                "            |    |   /    |    \\        / |        \\ |    |   \\         \n" +
+                "            |____|   \\_______  /\\__/\\  / /_______  / |____|_  /         \n" +
+                "                             \\/      \\/          \\/         \\/          \n" +
+                "___________________    _____  __      __.____     _____________________ \n" +
+                "\\_   ___ \\______   \\  /  _  \\/  \\    /  \\    |    \\_   _____/\\______   \\\n" +
+                "/    \\  \\/|       _/ /  /_\\  \\   \\/\\/   /    |     |    __)_  |       _/\n" +
+                "\\     \\___|    |   \\/    |    \\        /|    |___  |        \\ |    |   \\\n" +
+                " \\______  /____|_  /\\____|__  /\\__/\\  / |_______ \\/_______  / |____|_  /\n" +
+                "        \\/       \\/         \\/      \\/          \\/        \\/         \\/ ");
+    }
+
+    public void printMainMenu (int diamonds, int numberRoom) {
+        printLogo();
+        System.out.println("             ╔══════════════════════════════════════════╗");
+        System.out.println("             ║ Diamonds" + diamonds + "   " +
+                "      ║       Room: " + numberRoom + "       ║");
+        System.out.println("             ╠══════════════════════════════════════════╣");
+        System.out.println("             ║  [1]    Play Room                        ║");
+        System.out.println("             ║  [2]    Save and Exit                    ║");
+        System.out.println("             ╚══════════════════════════════════════════╝");
+    }
+
+    public void printPostRoom () {
+        System.out.println("[1]- Next Room");
+        System.out.println("[2]- Menu");
+    }
+
+
+    public int getOption (int maxOption) {
+        int choice = 0;
+        while (choice < 1 || choice > maxOption){
+            System.out.print("➤enter: ");
+            try {
+                choice = Integer.parseInt(sc.nextLine().trim());
+                if (choice < 1 || choice > maxOption) {
+                    System.out.println("Invalid Option! Choose between 1 and " + maxOption);
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println("Invalid Input! please enter a number");
+            }
+        }
+        return choice;
     }
 
     public char getMovementInput () {

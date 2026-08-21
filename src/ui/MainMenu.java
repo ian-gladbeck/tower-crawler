@@ -3,44 +3,44 @@ package ui;
 import engine.GameManager;
 import save.SaveManager;
 
-import java.util.Scanner;
-
 public class MainMenu {
-    private final Scanner sc;
-    private GameManager gameManager;
+    private final ConsoleUI consoleUI;
+    private final GameManager gameManager;
 
-    public MainMenu(Scanner sc, GameManager gameManager) {
-        this.sc = sc;
+    public MainMenu(ConsoleUI consoleUI, GameManager gameManager) {
+        this.consoleUI = consoleUI;
         this.gameManager = gameManager;
     }
 
-    public void initialMenu () {
-        try {
-            System.out.println("===TOWER CRAWLER===");
-            System.out.println("Diamonds: " + gameManager.getGameEngine().getPlayer().getDiamonds());
-            System.out.println("[1]- Play Room " +
-                    (gameManager.getGameEngine().getNumberRoom()));
-            System.out.println("[2]- Exit");
-            System.out.print("Enter: ");
-            int option = Integer.parseInt(sc.nextLine());
-            switch (option) {
-                case 1:
-                    while (option != 2) {
-                        gameManager.startRoom();
-                        System.out.println("[1]- Next Room");
-                        System.out.println("[2]- Menu");
-                        System.out.print("Enter: ");
-                        option = Integer.parseInt(sc.nextLine());
-                    }
-                    break;
-                case 2:
-                    SaveManager.save(gameManager.getGameEngine().getPlayer(), gameManager.getGameEngine().getNumberRoom());
-                    System.exit(0);
-                    break;
+    public void start() {
+        int diamonds = gameManager.getGameEngine().getPlayer().getDiamonds();
+        int numberRoom = gameManager.getGameEngine().getNumberRoom();
+        consoleUI.printMainMenu(diamonds, numberRoom);
+        int option = consoleUI.getOption(2);
+        switch (option) {
+            case 1 -> handlePlayLoop();
+            case 2 -> handleSaveAndExit();
+        }
+    }
+
+    private void handlePlayLoop() {
+        boolean isRunning = true;
+        while (isRunning) {
+            gameManager.startRoom();
+            if (!gameManager.getGameEngine().getPlayer().isAlive()) {
+                consoleUI.printMessage("GAME OVER");
+                break;
             }
+            consoleUI.printPostRoom();
+            int choice = consoleUI.getOption(2);
+            if (choice == 2) isRunning = false;
         }
-        catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
-        }
+    }
+
+    private void handleSaveAndExit() {
+        SaveManager.save(gameManager.getGameEngine().getPlayer(),
+                gameManager.getGameEngine().getNumberRoom());
+        consoleUI.printMessage("Game saved!");
+        System.exit(0);
     }
 }
