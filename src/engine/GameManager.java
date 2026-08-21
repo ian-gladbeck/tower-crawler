@@ -67,7 +67,7 @@ public class GameManager {
 
     private void checkDiamond () {
         if (gameEngine.checkDiamond(gameEngine.getPlayerPosition()))
-            lastEventMessage = "+10 DIAMONDS!!";
+            lastEventMessage = "+10 GOLD!!";
     }
 
 

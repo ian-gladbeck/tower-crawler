@@ -86,7 +86,7 @@ public class GameEngine {
     public boolean checkDiamond(Position position) {
         if (room.getTile(position)
             == Tile.GOLD) {
-            player.collectDiamond(10);
+            player.collectGold(10);
             room.setTile(position, Tile.PATH);
             return true;
         }

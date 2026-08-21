@@ -1,6 +1,7 @@
 import engine.GameEngine;
 import engine.GameManager;
 import engine.RoomGeneration;
+import model.ArtTiles;
 import model.Player;
 import model.Room;
 import save.SaveData;
@@ -18,11 +19,11 @@ public class Main {
         RoomGeneration roomGeneration = new RoomGeneration(room);
         GameEngine gameEngine;
         if (saveData != null) {
-            player = new Player("P", saveData);
+            player = new Player(ArtTiles.getPlayerSymbol(), saveData);
             gameEngine = new GameEngine(player, room, roomGeneration, saveData.getNumberRoom());
         }
         else {
-            player = new Player("P", 200);
+            player = new Player(ArtTiles.getPlayerSymbol(), 200);
             gameEngine = new GameEngine(player, room, roomGeneration, 1);
         }
         GameManager gameManager = new GameManager(sc, gameEngine, new ConsoleUI(sc));

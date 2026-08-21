@@ -3,7 +3,7 @@ package model;
 import save.SaveData;
 
 public class Player extends Entity{
-    private int diamonds;
+    private int gold;
     private int swordDurability;
 
     public Player(String symbol, int life) {
@@ -35,13 +35,13 @@ public class Player extends Entity{
         return this.swordDurability > 0;
     }
 
-    public void collectDiamond(int diamonds) {
-        if (diamonds > 0)
-            this.diamonds += diamonds;
+    public void collectGold(int ghold) {
+        if (ghold > 0)
+            this.gold += ghold;
     }
 
-    public int getDiamonds() {
-        return diamonds;
+    public int getGold() {
+        return gold;
     }
 
     public int getSwordDurability() {

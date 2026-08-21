@@ -67,7 +67,7 @@ public class RoomGeneration {
                 if (room.getTile(j, i) == Tile.BARRIER) continue;
                 if (room.getTile(j, i) == Tile.EXIT) continue;
                 if (random.nextInt(10) == 1) {
-                    Enemy enemy = new Enemy("E", 50, new Position(j, i));
+                    Enemy enemy = new Enemy(ArtTiles.getEnemySymbol(), 50, new Position(j, i));
                     room.addEnemy(enemy);
                 }
             }

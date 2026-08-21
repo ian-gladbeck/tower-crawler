@@ -32,13 +32,13 @@ public class ConsoleUI {
 
     public void printMainMenu (int diamonds, int numberRoom) {
         printLogo();
-        System.out.println("             ╔══════════════════════════════════════════╗");
-        System.out.println("             ║ Diamonds" + diamonds + "   " +
-                "      ║       Room: " + numberRoom + "       ║");
-        System.out.println("             ╠══════════════════════════════════════════╣");
-        System.out.println("             ║  [1]    Play Room                        ║");
-        System.out.println("             ║  [2]    Save and Exit                    ║");
-        System.out.println("             ╚══════════════════════════════════════════╝");
+        System.out.println("              |==========================================|");
+        System.out.println("              | GOLD" + diamonds + "   " +
+                "             |   Room: " + numberRoom + "         |");
+        System.out.println("              |==========================================|");
+        System.out.println("              |  [1]    Play Room                        |");
+        System.out.println("              |  [2]    Save and Exit                    |");
+        System.out.println("              |==========================================|");
     }
 
     public void printPostRoom () {
@@ -50,7 +50,7 @@ public class ConsoleUI {
     public int getOption (int maxOption) {
         int choice = 0;
         while (choice < 1 || choice > maxOption){
-            System.out.print("➤enter: ");
+            System.out.print(">enter: ");
             try {
                 choice = Integer.parseInt(sc.nextLine().trim());
                 if (choice < 1 || choice > maxOption) {
@@ -92,11 +92,11 @@ public class ConsoleUI {
             for (int j = 0; j < room.getWidth(); j++) {
                 Position currentPos = new Position(j, i);
                 if (player.getPosition().equals(currentPos))
-                    System.out.print(player.getSymbol() + " ");
+                    System.out.print(ArtTiles.getPlayerSymbol() + " ");
                 else {
                     Enemy enemy = room.getEnemyAt(currentPos);
                     String symbol = (enemy != null ? enemy.getSymbol()
-                            : room.getTile(currentPos).getSymbol());
+                            : ArtTiles.getTileSymbol(room.getTile(currentPos)));
                     System.out.print(symbol + " ");
                 }
             }
