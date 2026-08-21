@@ -13,6 +13,7 @@ public class MainMenu {
     }
 
     public void start() {
+        consoleUI.clearScreen();
         int diamonds = gameManager.getGameEngine().getPlayer().getDiamonds();
         int numberRoom = gameManager.getGameEngine().getNumberRoom();
         consoleUI.printMainMenu(diamonds, numberRoom);

@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class GameManager {
     private Scanner sc;
+    private String lastEventMessage = "";
     private GameEngine gameEngine;
     private ConsoleUI consoleUI;
 
@@ -27,15 +28,19 @@ public class GameManager {
     private void gameLoop (Room room, Player player) {
         while (player.isAlive()) {
             try {
+                consoleUI.clearScreen();
                 handleRenderUI(room);
+                if (!lastEventMessage.isEmpty()) {
+                    consoleUI.printMessage(lastEventMessage);
+                    lastEventMessage = "";
+                }
                 if (checkWinCondition()) break;
                 handleMovement();
-                consoleUI.clearScreen();
                 processCombat();
                 checkDiamond();
             }
             catch (InvalidMovementException e) {
-                consoleUI.printMessage(e.getMessage());
+                lastEventMessage = e.getMessage();
             }
         }
     }
@@ -62,7 +67,7 @@ public class GameManager {
 
     private void checkDiamond () {
         if (gameEngine.checkDiamond(gameEngine.getPlayerPosition()))
-            consoleUI.printMessage("+10 DIAMONDS!!");
+            lastEventMessage = "+10 DIAMONDS!!";
     }
 
 
@@ -86,17 +91,17 @@ public class GameManager {
 
     private boolean handlePlayerAttack(Enemy enemy) {
         if (!gameEngine.canPlayerAttack()) {
-            consoleUI.printMessage("You don't have sword!!");
+            lastEventMessage = "You don't have sword!!";
             return false;
         }
         gameEngine.playerAttack(enemy);
-        consoleUI.printMessage("You Kill enemy, but he attacks you\n-20 life!!");
+        lastEventMessage = "You Kill enemy, but he attacks you\n-20 life!!";
         return true;
     }
 
     private void handlePlayerFlee () {
         gameEngine.playerFlee();
-        consoleUI.printMessage("You escape, but enemy attacks you\n-50 life!!");
+        lastEventMessage = "You escape, but enemy attacks you\n-50 life!!";
     }
 
     public GameEngine getGameEngine() {
