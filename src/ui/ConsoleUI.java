@@ -41,6 +41,7 @@ public class ConsoleUI {
         if (player.hasSword())
             System.out.println("Sword Durability: " + player.getSwordDurability());
     }
+
     public void printRoom (Room room, Player player) {
         System.out.println("*------------------------*");
         for (int i = 0; i < room.getHeight(); i++) {
@@ -61,6 +62,25 @@ public class ConsoleUI {
         }
         System.out.println("*------------------------*");
     }
+
+    public int getCombatInput () {
+        int choice = 0;
+        while(choice != 1 && choice != 2) {
+            System.out.println("[1]- Attack");
+            System.out.println("[2]- Flee");
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+                if (choice != 1 && choice != 2) {
+                    System.out.println("Invalid Input! Enter 1 or 2");
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println("Invalid Input! please enter a number");
+            }
+        }
+        return choice;
+    }
+
 
     public void clearScreen() {
         System.out.print("\u001b[H\u001b[2J");

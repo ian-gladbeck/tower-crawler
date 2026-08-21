@@ -48,7 +48,7 @@ public class GameManager {
     private void processCombat() {
         Enemy enemy = gameEngine.checkEnemy();
         if (enemy != null)
-            combat(gameEngine.getPlayer(), enemy);
+            combat(enemy);
     }
 
     private boolean checkWinCondition() {
@@ -72,31 +72,31 @@ public class GameManager {
     }
 
 
-    private void combat (Player player, Enemy enemy) {
-        int choice = 3;
-        while (choice != 1 && choice != 2) {
-            System.out.println("[1]- Attack");
-            System.out.println("[2]- Flee");
-            choice = Integer.parseInt(sc.nextLine());
-            if (choice == 1) {
-                if (!player.hasSword()) {
-                    System.out.println("You don't have sword!!");
-                    choice = 3;
-                    continue;
-                }
-                gameEngine.playerAttack(enemy);
-                System.out.println("You Kill enemy, but he attacks you");
-                System.out.println("-20 Life!");
-            }
-            else if (choice == 2) {
-                gameEngine.playerFlee();
-                System.out.println("You escape, but enemy attacks you");
-                System.out.println("-50 life!");
+    private void combat (Enemy enemy) {
+        while (true) {
+            if (consoleUI.getCombatInput() == 1) {
+                if (handlePlayerAttack(enemy)) break;
             }
             else {
-                System.out.println("Invalid Input");
+                handlePlayerFlee();
+                break;
             }
         }
+    }
+
+    private boolean handlePlayerAttack(Enemy enemy) {
+        if (!gameEngine.canPlayerAttack()) {
+            consoleUI.printMessage("You don't have sword!!");
+            return false;
+        }
+        gameEngine.playerAttack(enemy);
+        consoleUI.printMessage("You Kill enemy, but he attacks you\n-20 life!!");
+        return true;
+    }
+
+    private void handlePlayerFlee () {
+        gameEngine.playerFlee();
+        consoleUI.printMessage("You escape, but enemy attacks you\n-50 life!!");
     }
 
     public GameEngine getGameEngine() {

@@ -27,6 +27,7 @@ public class GameEngine {
 
     public void nextRoom () {
         this.numberRoom ++;
+        this.stepHistory.clear();
         this.room = roomGeneration.createRoom();
         this.player.resetPlayerPosition();
     }
@@ -46,12 +47,14 @@ public class GameEngine {
     }
 
     public void playerAttack (Enemy enemy) {
+        if (!canPlayerAttack()) return;
         player.attack(enemy);
         enemy.attack(player);
         room.removeEnemy(enemy);
     }
 
     public void playerFlee () {
+        if (stepHistory.isEmpty()) return;
         player.takeDamage(50);
         playerUndoMove();
     }
@@ -88,6 +91,10 @@ public class GameEngine {
             return true;
         }
         return false;
+    }
+
+    public boolean canPlayerAttack () {
+        return player.hasSword();
     }
 
     public Position getPlayerPosition () {
