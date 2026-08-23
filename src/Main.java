@@ -21,8 +21,8 @@ public class Main {
         if (saveData != null) {
             player = new Player(ArtTiles.getPlayerSymbol(), saveData);
             gameEngine = new GameEngine(player, room, roomGeneration, saveData.getNumberRoom());
-        }
-        else {
+            }
+            else {
             player = new Player(ArtTiles.getPlayerSymbol(), 200);
             gameEngine = new GameEngine(player, room, roomGeneration, 1);
         }

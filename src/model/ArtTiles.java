@@ -5,7 +5,7 @@ public class ArtTiles {
         return switch (tile) {
             case BARRIER -> ConsoleColors.RED + "#" + ConsoleColors.RESET;
             case PATH -> " ";
-            case GOLD -> ConsoleColors.YELLOW + "$" + ConsoleColors.YELLOW;
+            case GOLD -> ConsoleColors.YELLOW + "$" + ConsoleColors.RESET;
             case EXIT -> ConsoleColors.GREEN + "!" + ConsoleColors.RESET;
         };
     }
