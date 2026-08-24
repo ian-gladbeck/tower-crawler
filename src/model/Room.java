@@ -16,11 +16,7 @@ public class Room {
     }
 
     public Enemy getEnemyAt (Position pos) {
-        for (Enemy enemy : enemies) {
-            if (enemy.getPosition().equals(pos))
-                return enemy;
-        }
-        return null;
+        return  enemies.stream().filter(e -> e.getPosition().equals(pos)).findFirst().orElse(null);
     }
 
     public boolean isWithinBounds (int x, int y) {
