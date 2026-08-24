@@ -38,6 +38,10 @@ public class GameManager {
                 handleMovement();
                 processCombat();
                 checkDiamond();
+                if (!player.isAlive()) {
+                    handleGameOver(room);
+                    break;
+                }
             }
             catch (InvalidMovementException e) {
                 lastEventMessage = e.getMessage();
@@ -74,6 +78,16 @@ public class GameManager {
     private void handleMovement () throws InvalidMovementException {
         char direction = consoleUI.getMovementInput();
         gameEngine.movePlayer(direction);
+    }
+
+    public void handleGameOver (Room room) {
+        consoleUI.clearScreen();
+        consoleUI.printGameOver(gameEngine.getNumberRoom(), gameEngine.getPlayer().getGold());
+        int n = consoleUI.getOption(2);
+        gameEngine.resetGame();
+        if (n == 1) {
+            startRoom();
+        }
     }
 
 

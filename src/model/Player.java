@@ -16,6 +16,13 @@ public class Player extends Entity{
         this.swordDurability = 5;
     }
 
+    public void reset () {
+        this.life = 100;
+        this.position = new Position(0, 0);
+        this.gold = 0;
+        this.swordDurability = 5;
+    }
+
     public void resetPlayerPosition () {
         setPosition(0, 0);
     }

@@ -32,6 +32,13 @@ public class GameEngine {
         this.player.resetPlayerPosition();
     }
 
+    public void resetGame () {
+        this.stepHistory.clear();
+        this.numberRoom = 1;
+        this.player.reset();
+        this.room = roomGeneration.createRoom();
+    }
+
     public void movePlayer (char direction) {
         Position newPosition = checkMovement(direction);
         if (newPosition == null) {

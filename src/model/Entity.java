@@ -1,8 +1,8 @@
 package model;
 
 public abstract class Entity {
-    private Position position;
-    private int life;
+    protected Position position;
+    protected int life;
     private final String symbol;
 
     public Entity(String symbol, int life, Position position) {

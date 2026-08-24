@@ -33,8 +33,8 @@ public class ConsoleUI {
     public void printMainMenu (int diamonds, int numberRoom) {
         printLogo();
         System.out.println("              |==========================================|");
-        System.out.println("              | GOLD" + diamonds + "   " +
-                "             |   Room: " + numberRoom + "         |");
+        System.out.println("              | GOLD: " + diamonds + "   " +
+                "         |   Room: " + numberRoom + "           |");
         System.out.println("              |==========================================|");
         System.out.println("              |  [1]    Play Room                        |");
         System.out.println("              |  [2]    Save and Exit                    |");
@@ -46,6 +46,16 @@ public class ConsoleUI {
         System.out.println("[2]- Menu");
     }
 
+    public void printGameOver(int roomsReached, int goldCollected) {
+        System.out.println("|==========================================|");
+        System.out.println("|                GAME OVER                 |");
+        System.out.println("|==========================================|");
+        System.out.println("|  You die in room: " +  roomsReached + "                     |");
+        System.out.println("|  Gold collected: " + goldCollected + "                      |");
+        System.out.println("|==========================================|");
+        System.out.println("[1] Play again");
+        System.out.println("[2] Back to menu");
+    }
 
     public int getOption (int maxOption) {
         int choice = 0;
