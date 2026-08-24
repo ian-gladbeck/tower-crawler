@@ -82,7 +82,7 @@ public class GameManager {
 
     public void handleGameOver (Room room) {
         consoleUI.clearScreen();
-        consoleUI.printGameOver(gameEngine.getNumberRoom(), gameEngine.getPlayer().getGold());
+        consoleUI.printGameOver(gameEngine.getNumberRoom(), gameEngine.getPlayer().getInventory().getGold());
         int n = consoleUI.getOption(2);
         gameEngine.resetGame();
         if (n == 1) {

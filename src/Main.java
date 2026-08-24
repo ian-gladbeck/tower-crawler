@@ -2,6 +2,7 @@ import engine.GameEngine;
 import engine.GameManager;
 import engine.RoomGeneration;
 import model.ArtTiles;
+import model.Inventory;
 import model.Player;
 import model.Room;
 import save.SaveData;
@@ -21,9 +22,9 @@ public class Main {
         if (saveData != null) {
             player = new Player(ArtTiles.getPlayerSymbol(), saveData);
             gameEngine = new GameEngine(player, room, roomGeneration, saveData.getNumberRoom());
-            }
-            else {
-            player = new Player(ArtTiles.getPlayerSymbol(), 200);
+        }
+        else {
+            player = new Player(ArtTiles.getPlayerSymbol(), 100, new Inventory());
             gameEngine = new GameEngine(player, room, roomGeneration, 1);
         }
         GameManager gameManager = new GameManager(sc, gameEngine, new ConsoleUI(sc));

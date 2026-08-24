@@ -14,7 +14,7 @@ public class MainMenu {
 
     public void start() {
         consoleUI.clearScreen();
-        int diamonds = gameManager.getGameEngine().getPlayer().getGold();
+        int diamonds = gameManager.getGameEngine().getPlayer().getInventory().getGold();
         int numberRoom = gameManager.getGameEngine().getNumberRoom();
         consoleUI.printMainMenu(diamonds, numberRoom);
         int option = consoleUI.getOption(2);

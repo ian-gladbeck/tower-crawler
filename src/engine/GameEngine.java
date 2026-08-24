@@ -101,7 +101,7 @@ public class GameEngine {
     }
 
     public boolean canPlayerAttack () {
-        return player.hasSword();
+        return player.getInventory().hasSword();
     }
 
     public Position getPlayerPosition () {

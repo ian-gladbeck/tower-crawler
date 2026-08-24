@@ -11,7 +11,7 @@ public class SaveManager {
     public static void save (Player player, int numberRoom) {
         try {
             String data = player.getLife() + "\n"
-                    + player.getGold() + "\n" + numberRoom;
+                    + player.getInventory().getGold() + "\n" + numberRoom;
             Files.writeString(path, data);
         }
         catch (IOException e) {
