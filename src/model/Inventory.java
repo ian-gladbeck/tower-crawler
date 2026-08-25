@@ -8,8 +8,8 @@ public class Inventory {
 
     public Inventory() {
         this.gold = 0;
-        this.sword = SwordType.WOODEN;
-        this.swordDurability = sword.getDurability();
+        this.sword = null;
+        this.swordDurability = 0;
         this.healingPotion = 0;
     }
 
