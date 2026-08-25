@@ -1,5 +1,6 @@
 package ui;
 
+import jdk.swing.interop.SwingInterOpUtils;
 import model.*;
 
 import java.util.Scanner;
@@ -39,6 +40,20 @@ public class ConsoleUI {
         System.out.println("              |  [1]    Play Room                        |");
         System.out.println("              |  [2]    Save and Exit                    |");
         System.out.println("              |==========================================|");
+    }
+
+    public void printMarketMenu (int gold) {
+        System.out.println("============================");
+        System.out.println("           MARKET");
+        System.out.println("============================");
+        System.out.println("Your Gold: " + gold);
+        System.out.println("============================");
+        System.out.println("1. Healing potion....15 Gold");
+        System.out.println("2. Wooden Sword....15 Gold");
+        System.out.println("3. Stone Sword....30 Gold");
+        System.out.println("4. Golden Sword....150 Gold");
+        System.out.println("5. Exit");
+        System.out.println("============================");
     }
 
     public void printPostRoom () {
@@ -91,8 +106,12 @@ public class ConsoleUI {
     public void printHUD (Player player, int numRoom) {
         System.out.println("=====ROOM " + numRoom + "=====");
         System.out.println("Your Life: " + player.getLife());
-        if (player.getInventory().hasSword())
-            System.out.println("Sword Durability: " + player.getInventory().getSwordDurability());
+        System.out.println("Gold: " + player.getInventory().getGold());
+        System.out.println("Healing Potion: " + player.getInventory().getHealingPotion());
+        if (player.getInventory().hasSword()) {
+            System.out.printf("%s, Durability: (%d/%d)%n", player.getInventory().getSword().getName(),
+                    player.getInventory().getSwordDurability(), player.getInventory().getSword().getDurability());
+        }
     }
 
     public void printRoom (Room room, Player player) {

@@ -46,6 +46,6 @@ public class Player extends Entity{
 
     public void cure (int life) {
         if (life > 0)
-            this.life += life;
+            this.life = Math.min(this.life + life, 100);
     }
 }
