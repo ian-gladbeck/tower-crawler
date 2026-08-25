@@ -1,6 +1,7 @@
 package engine;
 
 import model.Player;
+import model.Sword;
 import model.SwordType;
 import ui.ConsoleUI;
 
@@ -38,53 +39,31 @@ public class MarketEngine {
                         ui.printMessage("you no have gold enough");
                     }
                     break;
-                case 2:
-                    if (validateSale(TABLE_VALUES.get("Wooden Sword"), p.getInventory().getGold())) {
-                        if (!p.getInventory().hasSword()) {
-                            p.getInventory().addSword(SwordType.WOODEN);
-                            p.getInventory().spendGold(TABLE_VALUES.get("Wooden Sword"));
-                            ui.printMessage("+1 Wooden Sword");
-                        }
-                        else
-                            ui.printMessage("You already have a sword");
-                    }
-                    else {
-                        ui.printMessage("you no have gold enough");
-                    }
+                case 2: swordSale(SwordType.WOODEN, p.getInventory().getGold());
                     break;
-                case 3:
-                    if (validateSale(TABLE_VALUES.get("Stone Sword"), p.getInventory().getGold())) {
-                        if (!p.getInventory().hasSword()) {
-                            p.getInventory().addSword(SwordType.STONE);
-                            p.getInventory().spendGold(TABLE_VALUES.get("Stone Sword"));
-                            ui.printMessage("+1 Stone Sword");
-                        }
-                        else
-                            ui.printMessage("You already have a sword");
-                    }
-                    else {
-                        ui.printMessage("you no have gold enough");
-                    }
+                case 3: swordSale(SwordType.STONE, p.getInventory().getGold());
                     break;
-                case 4:
-                    if (validateSale(TABLE_VALUES.get("Golden Sword"), p.getInventory().getGold())) {
-                        if (!p.getInventory().hasSword()) {
-                            p.getInventory().addSword(SwordType.GOLDEN);
-                            p.getInventory().spendGold(TABLE_VALUES.get("Golden Sword"));
-                            ui.printMessage("+1 Golden Sword");
-                        }
-                        else
-                            ui.printMessage("You already have a sword");
-                    }
-                    else {
-                        ui.printMessage("you no have gold enough");
-                    }
+                case 4: swordSale(SwordType.GOLDEN, p.getInventory().getGold());
                     break;
-                case 5:
-                    ui.printMessage("See you later...");
+                case 5: ui.printMessage("See you later...");
                     break;
             }
         }
+    }
+
+    private void swordSale (SwordType sword, int goldPlayer) {
+        if (!validateSale(TABLE_VALUES.get(sword.getName()), goldPlayer)) {
+            ui.printMessage("you no have gold enough");
+            return;
+        }
+
+        if (!p.getInventory().hasSword()) {
+            p.getInventory().addSword(sword);
+            p.getInventory().spendGold(TABLE_VALUES.get(sword.getName()));
+            ui.printMessage("+1 " + sword.getName());
+        }
+        else ui.printMessage("You already have a sword");
+
     }
 
     private boolean validateSale (int value, int playerGold) {
