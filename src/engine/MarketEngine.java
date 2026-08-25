@@ -1,15 +1,12 @@
 package engine;
 
 import model.Player;
-import model.Sword;
 import model.SwordType;
 import ui.ConsoleUI;
-
-import java.util.Hashtable;
 import java.util.Map;
 
 public class MarketEngine {
-    private final Map<String, Integer> TABLE_VALUES = Map.of(
+    private final Map<String, Integer> values = Map.of(
             "Healing Potion", 10,
             "Wooden Sword", 15,
             "Stone Sword", 30,
@@ -30,9 +27,9 @@ public class MarketEngine {
             option = ui.getOption(5);
             switch (option) {
                 case 1:
-                    if (validateSale(TABLE_VALUES.get("Healing Potion"), p.getInventory().getGold())) {
+                    if (validateSale(values.get("Healing Potion"), p.getInventory().getGold())) {
                         p.getInventory().addHealingPotion(1);
-                        p.getInventory().spendGold(TABLE_VALUES.get("Healing Potion"));
+                        p.getInventory().spendGold(values.get("Healing Potion"));
                         ui.printMessage("+1 Healing Potion!!");
                     }
                     else {
@@ -52,14 +49,14 @@ public class MarketEngine {
     }
 
     private void swordSale (SwordType sword, int goldPlayer) {
-        if (!validateSale(TABLE_VALUES.get(sword.getName()), goldPlayer)) {
+        if (!validateSale(values.get(sword.getName()), goldPlayer)) {
             ui.printMessage("you no have gold enough");
             return;
         }
 
         if (!p.getInventory().hasSword()) {
             p.getInventory().addSword(sword);
-            p.getInventory().spendGold(TABLE_VALUES.get(sword.getName()));
+            p.getInventory().spendGold(values.get(sword.getName()));
             ui.printMessage("+1 " + sword.getName());
         }
         else ui.printMessage("You already have a sword");
