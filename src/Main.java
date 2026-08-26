@@ -6,6 +6,8 @@ import model.ArtTiles;
 import model.Inventory;
 import model.Player;
 import model.Room;
+import model.items.Sword;
+import repository.ItemRepository;
 import save.SaveData;
 import save.SaveManager;
 import ui.MainMenu;
@@ -15,10 +17,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Inventory inventory = new Inventory();
+        ItemRepository itemRepository = new ItemRepository();
+        Inventory inventory = new Inventory(300,null);
         Player player = new Player("p", 200, inventory);
         player.getInventory().addGold(100);
-        MarketEngine marketEngine = new MarketEngine(new ConsoleUI(sc), player);
+        MarketEngine marketEngine = new MarketEngine(itemRepository, new ConsoleUI(sc), player);
         marketEngine.openMarket();
 
 //        SaveData saveData = SaveManager.load();

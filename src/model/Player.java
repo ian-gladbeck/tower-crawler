@@ -1,5 +1,7 @@
 package model;
 
+import model.items.Item;
+import model.items.Sword;
 import save.SaveData;
 
 public class Player extends Entity{
@@ -12,13 +14,12 @@ public class Player extends Entity{
 
     public Player(String symbol, SaveData saveData) {
         super(symbol, saveData.getLife(), new Position(0, 0));
-        this.inventory = new Inventory();
+        this.inventory = new Inventory(0, new Sword("Wooden Sword", 15, 5));
     }
 
     public void reset () {
         this.life = 100;
         this.position = new Position(0, 0);
-        this.inventory.resetInventory();
     }
 
     public void resetPlayerPosition () {
@@ -36,6 +37,18 @@ public class Player extends Entity{
         }
     }
 
+    public boolean hasSword () {
+        return this.inventory.hasSword();
+    }
+
+    public void addItemToInventory (Item item) {
+        this.getInventory().addItem(item);
+    }
+
+    public void spendGold (int amount) {
+        this.getInventory().spendGold(amount);
+    }
+
     public Inventory getInventory() {
         return inventory;
     }
@@ -47,5 +60,9 @@ public class Player extends Entity{
     public void cure (int life) {
         if (life > 0)
             this.life = Math.min(this.life + life, 100);
+    }
+
+    public int getGold () {
+        return inventory.getGold();
     }
 }

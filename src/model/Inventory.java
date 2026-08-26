@@ -18,12 +18,14 @@ public class Inventory {
         this.potions = new ArrayList<>();
     }
 
-    public boolean addItem (Item item) {
-        if (item instanceof Sword swordItem)
-            return addSword(swordItem);
-        if (item instanceof HealingPotion potionItem)
-            return addHealingPotion(potionItem);
-        return false;
+    public void addItem (Item item) {
+        if (item instanceof Sword swordItem) {
+            addSword(swordItem);
+            return;
+        }
+        if (item instanceof HealingPotion potionItem) {
+            addHealingPotion(potionItem);
+        }
     }
 
     public void addGold(int gold) {
@@ -31,26 +33,22 @@ public class Inventory {
         this.gold += gold;
     }
 
-    public boolean addSword(Sword sword) {
+    public void addSword(Sword sword) {
         if (sword != null) {
             this.sword = sword;
-            return true;
         }
-        return false;
     }
 
-    public boolean addHealingPotion(HealingPotion potion) {
-        if (potions.size() >= 10) return false;
+    public void addHealingPotion(HealingPotion potion) {
+        if (potions.size() >= 10) return;
         potions.add(potion);
-        return true;
     }
 
-    public boolean spendGold (int amount) {
-        if (amount <= 0) return false;
+    public void spendGold (int amount) {
+        if (amount <= 0) return;
         if (this.gold >= amount) {
             this.gold -= amount;
-            return true;
-        } else return false;
+        }
     }
 
     public boolean hasSword () {
@@ -84,5 +82,9 @@ public class Inventory {
         if (hasSword())
             return this.sword.getDurability();
         return 0;
+    }
+
+    public int getHealingPotion() {
+        return potions.size() - 1;
     }
 }

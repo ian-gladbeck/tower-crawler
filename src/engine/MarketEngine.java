@@ -1,21 +1,21 @@
 package engine;
 
 import model.Player;
+import model.items.HealingPotion;
+import model.items.Item;
+import model.items.Sword;
 import model.items.SwordType;
+import repository.ItemRepository;
 import ui.ConsoleUI;
 import java.util.Map;
 
 public class MarketEngine {
-    private final Map<String, Integer> values = Map.of(
-            "Healing Potion", 10,
-            "Wooden Sword", 15,
-            "Stone Sword", 30,
-            "Golden Sword", 150
-    );
+    private final ItemRepository itemRepository;
     private final ConsoleUI ui;
     private final Player p;
 
-    public MarketEngine(ConsoleUI ui, Player p) {
+    public MarketEngine(ItemRepository itemRepository, ConsoleUI ui, Player p) {
+        this.itemRepository = itemRepository;
         this.ui = ui;
         this.p = p;
     }
@@ -27,20 +27,17 @@ public class MarketEngine {
             option = ui.getOption(5);
             switch (option) {
                 case 1:
-                    if (validateSale(values.get("Healing Potion"), p.getInventory().getGold())) {
-                        p.getInventory().addHealingPotion(1);
-                        p.getInventory().spendGold(values.get("Healing Potion"));
-                        ui.printMessage("+1 Healing Potion!!");
-                    }
-                    else {
-                        ui.printMessage("you no have gold enough");
+                    HealingPotion potion = new HealingPotion("Healing Potion", 15, 30);
+                    if (validateSale(potion)) {
+                        p.addItemToInventory(potion);
+                        p.spendGold(potion.getPrice());
                     }
                     break;
-                case 2: swordSale(SwordType.WOODEN, p.getInventory().getGold());
+                case 2: swordSale("wooden");
                     break;
-                case 3: swordSale(SwordType.STONE, p.getInventory().getGold());
+                case 3: swordSale("stone");
                     break;
-                case 4: swordSale(SwordType.GOLDEN, p.getInventory().getGold());
+                case 4: swordSale("golden");
                     break;
                 case 5: ui.printMessage("See you later...");
                     break;
@@ -48,22 +45,26 @@ public class MarketEngine {
         }
     }
 
-    private void swordSale (SwordType sword, int goldPlayer) {
-        if (!validateSale(values.get(sword.getName()), goldPlayer)) {
-            ui.printMessage("you no have gold enough");
-            return;
-        }
-
-        if (!p.getInventory().hasSword()) {
-            p.getInventory().addSword(sword);
-            p.getInventory().spendGold(values.get(sword.getName()));
-            ui.printMessage("+1 " + sword.getName());
-        }
-        else ui.printMessage("You already have a sword");
-
+    private Sword generateSword(String type) {
+        return switch (type) {
+            case "stone" -> new Sword("Stone Sword",150, 10);
+            case "golden" -> new Sword("Golden Sword",250, 25);
+            default -> new Sword("Wooden Sword",15, 5);
+        };
     }
 
-    private boolean validateSale (int value, int playerGold) {
-        return playerGold >= value;
+
+    private void swordSale (String type) {
+       Sword sword = generateSword(type);
+       if (validateSale(sword)) {
+           if (!p.hasSword()) {
+               p.spendGold(sword.getPrice());
+               p.addItemToInventory(sword);
+           }
+       }
+    }
+
+    private boolean validateSale (Item item) {
+        return p.getGold() >= item.getPrice();
     }
 }

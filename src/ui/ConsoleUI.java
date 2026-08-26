@@ -106,7 +106,7 @@ public class ConsoleUI {
     public void printHUD (Player player, int numRoom) {
         System.out.println("=====ROOM " + numRoom + "=====");
         System.out.println("Your Life: " + player.getLife());
-        System.out.println("Gold: " + player.getInventory().getGold());
+        System.out.println("Gold: " + player.getGold());
         System.out.println("Healing Potion: " + player.getInventory().getHealingPotion());
         if (player.getInventory().hasSword()) {
             System.out.printf("%s, Durability: (%d/%d)%n", player.getInventory().getSword().getName(),
