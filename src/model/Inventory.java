@@ -1,25 +1,29 @@
 package model;
 
-import model.items.SwordType;
+import model.items.HealingPotion;
+import model.items.Item;
+import model.items.Sword;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
     private int gold;
-    private SwordType sword;
-    private int swordDurability;
-    private int healingPotion;
+    private Sword sword;
+    private List<HealingPotion> potions;
 
-    public Inventory() {
-        this.gold = 0;
-        this.sword = null;
-        this.swordDurability = 0;
-        this.healingPotion = 0;
+    public Inventory(int gold, Sword sword) {
+        this.gold = gold;
+        this.sword = sword;
+        this.potions = new ArrayList<>();
     }
 
-    public void resetInventory () {
-        this.gold = 0;
-        this.sword = SwordType.WOODEN;
-        this.swordDurability = sword.getDurability();
-        this.healingPotion = 0;
+    public boolean addItem (Item item) {
+        if (item instanceof Sword swordItem)
+            return addSword(swordItem);
+        if (item instanceof HealingPotion potionItem)
+            return addHealingPotion(potionItem);
+        return false;
     }
 
     public void addGold(int gold) {
@@ -27,16 +31,18 @@ public class Inventory {
         this.gold += gold;
     }
 
-    public void addSword(SwordType sword) {
+    public boolean addSword(Sword sword) {
         if (sword != null) {
             this.sword = sword;
-            this.swordDurability = sword.getDurability();
+            return true;
         }
+        return false;
     }
 
-    public void addHealingPotion(int healingPotion) {
-        if (healingPotion <= 0) return;
-        this.healingPotion += healingPotion;
+    public boolean addHealingPotion(HealingPotion potion) {
+        if (potions.size() >= 10) return false;
+        potions.add(potion);
+        return true;
     }
 
     public boolean spendGold (int amount) {
@@ -53,16 +59,16 @@ public class Inventory {
 
     public void useSword () {
         if (hasSword()) {
-            swordDurability--;
-            if (swordDurability <= 0)
+            this.sword.useSword();
+            if (this.sword.getDurability() <= 0)
                 this.sword = null;
         }
     }
 
     public void spendHealingPotion (Player player) {
-        if (this.healingPotion > 0) {
-            player.cure(50);
-            this.healingPotion--;
+        if (!potions.isEmpty()) {
+            HealingPotion potion = potions.removeFirst();
+            player.cure(potion.getHealAmount());
         }
     }
 
@@ -70,15 +76,13 @@ public class Inventory {
         return gold;
     }
 
-    public SwordType getSword() {
+    public Sword getSword() {
         return sword;
     }
 
     public int getSwordDurability() {
-        return swordDurability;
-    }
-
-    public int getHealingPotion() {
-        return healingPotion;
+        if (hasSword())
+            return this.sword.getDurability();
+        return 0;
     }
 }
