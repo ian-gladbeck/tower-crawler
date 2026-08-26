@@ -1,4 +1,4 @@
-package model;
+package model.items;
 
 public enum SwordType {
     WOODEN("Wooden Sword", 3),

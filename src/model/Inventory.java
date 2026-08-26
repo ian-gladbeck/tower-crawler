@@ -1,5 +1,7 @@
 package model;
 
+import model.items.SwordType;
+
 public class Inventory {
     private int gold;
     private SwordType sword;

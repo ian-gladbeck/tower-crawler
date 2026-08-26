@@ -1,7 +1,7 @@
 package engine;
 
 import model.Player;
-import model.SwordType;
+import model.items.SwordType;
 import ui.ConsoleUI;
 import java.util.Map;
 
