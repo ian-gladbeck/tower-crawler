@@ -1,5 +1,8 @@
 package model;
 
+import exception.AlreadyHasItemException;
+import exception.InsufficientGoldException;
+import exception.InventoryFullException;
 import model.items.HealingPotion;
 import model.items.Item;
 import model.items.Sword;
@@ -34,21 +37,21 @@ public class Inventory {
     }
 
     public void addSword(Sword sword) {
-        if (sword != null) {
-            this.sword = sword;
-        }
+        if (this.sword != null)
+            throw new AlreadyHasItemException("You already haas a sword.");
+        this.sword = sword;
     }
 
     public void addHealingPotion(HealingPotion potion) {
-        if (potions.size() >= 10) return;
+        if (potions.size() >= 10)
+            throw new InventoryFullException("You already have the maximum limit of potions.");
         potions.add(potion);
     }
 
     public void spendGold (int amount) {
-        if (amount <= 0) return;
-        if (this.gold >= amount) {
-            this.gold -= amount;
-        }
+        if (this.gold < amount)
+            throw new InsufficientGoldException("You don't have enough money.");
+        this.gold -= amount;
     }
 
     public boolean hasSword () {
