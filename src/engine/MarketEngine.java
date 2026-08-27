@@ -29,8 +29,8 @@ public class MarketEngine {
                 switch (option) {
                     case 1:
                         HealingPotion potion = new HealingPotion("Healing Potion", 15, 30);
-                        p.addItemToInventory(potion);
                         p.spendGold(potion.getPrice());
+                        p.addItemToInventory(potion);
                         break;
                     case 2:
                         swordSale("wooden");
@@ -54,8 +54,8 @@ public class MarketEngine {
 
     private Sword generateSword(String type) {
         return switch (type) {
-            case "stone" -> new Sword("Stone Sword", 150, 10);
-            case "golden" -> new Sword("Golden Sword", 250, 25);
+            case "stone" -> new Sword("Stone Sword", 100, 10);
+            case "golden" -> new Sword("Golden Sword", 300, 25);
             default -> new Sword("Wooden Sword", 15, 5);
         };
     }
@@ -63,7 +63,7 @@ public class MarketEngine {
 
     private void swordSale(String type) {
         Sword sword = generateSword(type);
-        p.addItemToInventory(sword);
         p.spendGold(sword.getPrice());
+        p.addItemToInventory(sword);
     }
 }

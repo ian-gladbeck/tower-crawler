@@ -38,7 +38,7 @@ public class Inventory {
 
     public void addSword(Sword sword) {
         if (this.sword != null)
-            throw new AlreadyHasItemException("You already haas a sword.");
+            throw new AlreadyHasItemException("You already has a sword.");
         this.sword = sword;
     }
 
